@@ -228,6 +228,7 @@ export const CODE_QUESTIONS = [
     label: 'What happened to order 12345?',
     label_de: 'Was ist mit Bestellung 12345 passiert?',
     raw: ['orders', 'users', 'shipments'],
+    lookup: true, // a plain agent can fetch the three records directly, so compare against those
     code:
 `const o = await tools.orders.get({ id: 12345 })
 const u = await tools.users.get({ id: o.customer_id })
@@ -308,6 +309,16 @@ export function makeShopTools(d) {
     users: { get: async ({ id }) => userById.get(id), list: async () => d.users },
     shipments: { find: async ({ order }) => shipByOrder.get(order), list: async () => d.shipments }
   };
+}
+
+// What plain tool calls would put into the model's context for a question.
+// Lookups fetch whole records; questions that need every row fetch whole tables.
+export function rawPayload(q, data) {
+  if (!q.lookup) return q.raw.map(t => JSON.stringify(data[t]));
+  const order = data.orders.find(o => o.id === 12345);
+  const user = data.users.find(u => u.id === order.customer_id);
+  const shipment = data.shipments.find(x => x.order_id === order.id);
+  return [order, user, shipment].map(r => JSON.stringify(r));
 }
 
 // Runs one of the fixed scripts above (never visitor input) against the toy tools.

@@ -1,7 +1,7 @@
 import {
   outcome, botMove, humanMoves, findPath, resumeAnswer, requestModel, PROCESSING_MS,
   C4, c4Empty, c4Full, c4WinLine, c4Think, c4Label, c4Explain,
-  CODE_QUESTIONS, makeShopData, makeShopTools, runCodeQuestion
+  CODE_QUESTIONS, makeShopData, makeShopTools, runCodeQuestion, rawPayload
 } from './engine.mjs';
 import { getLang, setLang, tr, locale, onLangChange, applyPage } from './i18n.mjs';
 
@@ -125,8 +125,8 @@ function codeModeLab() {
   const qLabel = q => tr(q.label, q.label_de);
   content.innerHTML = `
     <h2 id="dialog-title">${tr('Keep the data <em>out.</em>', 'Daten <em>draußen lassen.</em>')}</h2>
-    <p class="subtext">${tr('The idea behind my hackathon project, small enough to run here. Pick a question and grow the database: the raw tool output grows with it, the Code Mode answer stays tiny.',
-      'Die Idee hinter meinem Hackathon-Projekt, klein genug für den Browser. Wählen Sie eine Frage und vergrößern Sie die Datenbank: Die rohe Tool-Ausgabe wächst mit, die Code-Mode-Antwort bleibt winzig.')}</p>
+    <p class="subtext">${tr('The idea behind my hackathon project, small enough to run here. For a simple lookup, Code Mode saves a little. For questions that need every row, the raw tool output grows with the database while the Code Mode answer stays tiny.',
+      'Die Idee hinter meinem Hackathon-Projekt, klein genug für den Browser. Bei einer einfachen Abfrage spart Code Mode wenig. Bei Fragen, die jede Zeile brauchen, wächst die rohe Tool-Ausgabe mit der Datenbank, während die Code-Mode-Antwort winzig bleibt.')}</p>
     <div class="lab-body code-lab">
       <div class="stack">
         <div>
@@ -177,7 +177,8 @@ function codeModeLab() {
     const json = t => cache.json[t] ??= JSON.stringify(cache.data[t]);
     const result = await runCodeQuestion(q, makeShopTools(cache.data));
     if (mine !== run || !$('#cm-code')) return;
-    const rawBytes = q.raw.reduce((s, t) => s + bytes(json(t)), 0);
+    const payload = q.lookup ? rawPayload(q, cache.data) : q.raw.map(json);
+    const rawBytes = payload.reduce((s, p) => s + bytes(p), 0);
     const cmBytes = bytes(JSON.stringify(result));
     const tables = new Intl.ListFormat(locale()).format(q.raw);
     $('#cm-ask').innerHTML = tr(`Agent is asked: <b>“${esc(q.label)}”</b>`, `Der Agent wird gefragt: <b>„${esc(q.label_de)}“</b>`);
@@ -189,9 +190,9 @@ function codeModeLab() {
     // ratio from the rounded token counts shown, so the sentence adds up
     const rawTokens = Math.round(rawBytes / 4), cmTokens = Math.max(1, Math.round(cmBytes / 4)), ratio = rawTokens / cmTokens;
     $('#cm-note').textContent = tr(
-      `About ${num(cmTokens)} tokens instead of ${num(rawTokens)}, ${num(ratio)}× less. Raw means the full ${tables} table${q.raw.length > 1 ? 's' : ''}.`,
-      `Etwa ${num(cmTokens)} statt ${num(rawTokens)} Tokens, ${num(ratio)}× weniger. „Roh“ heißt: die vollständige${q.raw.length > 1 ? 'n Tabellen' : ' Tabelle'} ${tables}.`);
-    $('#cm-peek').textContent = json(q.raw[0]).slice(0, 700) + ' …';
+      `About ${num(cmTokens)} tokens instead of ${num(rawTokens)}, ${num(ratio)}× less. ${q.lookup ? 'Raw means the three full records a plain agent would fetch: order, customer and shipment.' : `Raw means the full ${tables} table${q.raw.length > 1 ? 's' : ''}: without code, the model has to read every row.`}`,
+      `Etwa ${num(cmTokens)} statt ${num(rawTokens)} Tokens, ${num(ratio)}× weniger. ${q.lookup ? '„Roh“ heißt: die drei vollständigen Datensätze, die ein normaler Agent abrufen würde: Bestellung, Kunde und Sendung.' : `„Roh“ heißt: die vollständige${q.raw.length > 1 ? 'n Tabellen' : ' Tabelle'} ${tables}. Ohne Code muss das Modell jede Zeile lesen.`}`);
+    $('#cm-peek').textContent = payload[0].slice(0, 700) + ' …';
   }
 
   $('#cm-q').addEventListener('click', e => {
