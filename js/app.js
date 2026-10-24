@@ -190,8 +190,8 @@ function codeModeLab() {
     // ratio from the rounded token counts shown, so the sentence adds up
     const rawTokens = Math.round(rawBytes / 4), cmTokens = Math.max(1, Math.round(cmBytes / 4)), ratio = rawTokens / cmTokens;
     $('#cm-note').textContent = tr(
-      `About ${num(cmTokens)} tokens instead of ${num(rawTokens)}, ${num(ratio)}× less. ${q.lookup ? 'Raw means the three full records a plain agent would fetch: order, customer and shipment.' : `Raw means the full ${tables} table${q.raw.length > 1 ? 's' : ''}: without code, the model has to read every row.`}`,
-      `Etwa ${num(cmTokens)} statt ${num(rawTokens)} Tokens, ${num(ratio)}× weniger. ${q.lookup ? '„Roh“ heißt: die drei vollständigen Datensätze, die ein normaler Agent abrufen würde: Bestellung, Kunde und Sendung.' : `„Roh“ heißt: die vollständige${q.raw.length > 1 ? 'n Tabellen' : ' Tabelle'} ${tables}. Ohne Code muss das Modell jede Zeile lesen.`}`);
+      `About ${num(cmTokens)} tokens instead of ${num(rawTokens)} (${num(ratio)}× less). ${q.lookup ? 'Raw means the three full records a plain agent would fetch: order, customer and shipment.' : `Raw means the full ${tables} table${q.raw.length > 1 ? 's' : ''}: without code, the model has to read every row.`}`,
+      `Etwa ${num(cmTokens)} statt ${num(rawTokens)} Tokens (${num(ratio)}× weniger). ${q.lookup ? '„Roh“ heißt: die drei vollständigen Datensätze, die ein normaler Agent abrufen würde: Bestellung, Kunde und Sendung.' : `„Roh“ heißt: die vollständige${q.raw.length > 1 ? 'n Tabellen' : ' Tabelle'} ${tables}. Ohne Code muss das Modell jede Zeile lesen.`}`);
     $('#cm-peek').textContent = payload[0].slice(0, 700) + ' …';
   }
 

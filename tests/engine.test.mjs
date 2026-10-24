@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   botMove, outcome, humanMoves, findPath, resumeAnswer, requestModel,
-  C4, c4Empty, c4Think, c4WinLine, CODE_QUESTIONS, makeShopData, makeShopTools, runCodeQuestion
+  C4, c4Empty, c4Think, c4WinLine, CODE_QUESTIONS, makeShopData, makeShopTools, runCodeQuestion, rawPayload
 } from '../js/engine.mjs';
 
 test('optimal tic-tac-toe bot never loses against any human move sequence', () => {
@@ -109,9 +109,10 @@ test('code mode scripts answer from toy data in far fewer bytes than the raw tab
   const third = await runCodeQuestion(CODE_QUESTIONS[2], tools);
   assert.equal(third.length, 3);
   for (const q of CODE_QUESTIONS) {
-    const raw = q.raw.reduce((s, t) => s + JSON.stringify(data[t]).length, 0);
+    const raw = rawPayload(q, data).reduce((s, p) => s + p.length, 0);
     const answer = JSON.stringify(await runCodeQuestion(q, tools)).length;
-    assert.ok(raw > answer * 1000);
+    // lookups save a little; questions that need every row save a lot
+    assert.ok(q.lookup ? raw > answer && raw < answer * 50 : raw > answer * 1000);
   }
 });
 
