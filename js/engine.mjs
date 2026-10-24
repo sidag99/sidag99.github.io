@@ -12,14 +12,15 @@ export function outcome(board) {
   return board.every(Boolean) ? { winner: 'draw', line: [] } : null;
 }
 
-function minimax(board, turn, depth = 0) {
+function minimax(board, turn, depth = 0, stats = { nodes: 0 }) {
+  stats.nodes++;
   const end = outcome(board);
   if (end) return end.winner === 'O' ? 10 - depth : end.winner === 'X' ? depth - 10 : 0;
   const values = [];
   for (let i = 0; i < 9; i++) {
     if (board[i]) continue;
     board[i] = turn;
-    values.push(minimax(board, turn === 'O' ? 'X' : 'O', depth + 1));
+    values.push(minimax(board, turn === 'O' ? 'X' : 'O', depth + 1, stats));
     board[i] = '';
   }
   return turn === 'O' ? Math.max(...values) : Math.min(...values);
@@ -27,15 +28,15 @@ function minimax(board, turn, depth = 0) {
 
 export function botMove(board, difficulty = 'optimal', random = Math.random) {
   if (outcome(board)) return null;
-  const moves = [];
+  const moves = [], stats = { nodes: 0 };
   for (let i = 0; i < 9; i++) {
     if (board[i]) continue;
     const next = [...board];
     next[i] = 'O';
-    moves.push({ index: i, score: minimax(next, 'X') });
+    moves.push({ index: i, score: minimax(next, 'X', 0, stats) });
   }
   if (difficulty === 'casual') {
-    return { ...moves[Math.floor(random() * moves.length)], reason: 'Casual mode picks a random legal move, so it can make mistakes.' };
+    return { ...moves[Math.floor(random() * moves.length)], nodes: 0, reason: 'Casual mode picks a random legal move, so it can make mistakes.' };
   }
   moves.sort((a, b) => b.score - a.score || TTT_PREFERENCE.indexOf(a.index) - TTT_PREFERENCE.indexOf(b.index));
   const best = moves[0];
@@ -46,7 +47,7 @@ export function botMove(board, difficulty = 'optimal', random = Math.random) {
     : blocks ? 'I blocked your immediate winning threat. Minimax also checked what happens after the block.'
     : best.index === 4 && board.every(v => v !== 'O') && board.filter(Boolean).length <= 1 ? 'I took the centre. Among equally good moves, my tie-break prefers the centre, then corners.'
     : 'I searched every possible continuation. This move gives me the best guaranteed outcome, assuming you also play perfectly.';
-  return { ...best, reason };
+  return { ...best, nodes: stats.nodes, reason };
 }
 
 // What each open square leads to for the human (X) if both sides play perfectly from there.
@@ -326,7 +327,7 @@ const answers = [
   },
   {
     keys: /\b(experience|work|build|built|career|navarambh|aio|jira|about|who|siddharth|test\w*|sdet)\b/i,
-    text: 'Siddharth worked at Navarambh Software as SDE I and then SDE II from July 2021 to October 2025, working on AIO Tests, a test management app inside Jira. He led the Vue 3 / TypeScript migration, built 50+ reusable components and Java services, sped up key workflows by up to 40%, and shipped AI and Jira integrations. Before that he was an SDET intern at Frugal Testing (Jan–Jun 2021).'
+    text: 'Siddharth worked at Navarambh Software as SDE I and then SDE II from July 2021 to October 2025, working on AIO Tests (aiotests.com), a test management app inside Jira where QA teams write test cases, run test cycles and track defects. He led the Vue 3 / TypeScript migration, built 50+ reusable components and Java services, sped up key workflows by up to 40%, and shipped AI and Jira integrations. Before that he was an SDET intern at Frugal Testing (Jan–Jun 2021).'
   }
 ];
 

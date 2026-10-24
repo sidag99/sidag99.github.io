@@ -17,13 +17,12 @@ Static files, no build step and no backend:
 
 The Code Mode project section opens **Code Mode on toy data**: the idea from the Black Forest Hackathon project, run against generated data in the browser.
 
-The playground has five experiments:
+The playground has four experiments:
 
-1. **Connect Four** — depth-limited minimax with alpha-beta pruning that shows its score for every column, with hints and undo.
-2. **Tic-tac-toe** — exhaustive minimax, with hints, outcome overlays and undo.
+1. **Request simulator** — sequential, parallel and batched requests on a timeline (an illustrative model).
+2. **Two games, two kinds of bot** — tic-tac-toe with exhaustive minimax (solved: it checks every possible game) and Connect Four with depth-limited minimax and alpha-beta pruning (estimated: it shows its score for every column). Both have hints and undo.
 3. **Pathfinding** — draw a maze and compare breadth-first search with A*.
-4. **Request simulator** — sequential, parallel and batched requests on a timeline (an illustrative model).
-5. **Guided assistant** — prepared answers from the résumé; not a language model, nothing leaves the page.
+4. **Guided assistant** — prepared answers from the résumé; not a language model, nothing leaves the page.
 
 The demos and games were built for this portfolio with help from AI coding assistants.
 

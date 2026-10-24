@@ -28,17 +28,17 @@ $('#mini-c4').innerHTML = MINI.map(c => `<i class="${c}"></i>`).join('');
 
 /* ---------- lab dialog ---------- */
 const dialog = $('#lab-dialog'), content = $('#lab-content');
-const LABS = { codemode: codeModeLab, c4: connectFourLab, ttt: ticTacToeLab, path: pathLab, requests: requestLab, ask: askLab };
-const PLAYGROUND = ['c4', 'ttt', 'path', 'requests', 'ask']; // Code Mode lives with its case study, not the playground
+const LABS = { codemode: codeModeLab, games: gamesLab, path: pathLab, requests: requestLab, ask: askLab };
+const PLAYGROUND = ['requests', 'games', 'path', 'ask']; // Code Mode lives with its case study, not the playground
 const explored = new Set();
 let cleanup = () => {}, lastTrigger = null;
 
-function openLab(name, trigger = document.activeElement) {
+function openLab(name, trigger = document.activeElement, option) {
   if ($('#command-dialog').open) $('#command-dialog').close();
   cleanup();
   cleanup = () => {};
   lastTrigger = trigger;
-  LABS[name]();
+  LABS[name](option);
   if (!dialog.open) dialog.showModal();
   dialog.scrollTop = 0;
   document.body.style.overflow = 'hidden';
@@ -69,7 +69,7 @@ dialog.addEventListener('close', () => {
 });
 document.addEventListener('click', e => {
   const t = e.target.closest('[data-lab], [data-open]');
-  if (t) openLab(t.dataset.lab || t.dataset.open, t);
+  if (t) openLab(t.dataset.lab || t.dataset.open, t, t.dataset.tab);
 });
 
 /* ---------- 01 Code Mode on toy data ---------- */
@@ -148,15 +148,52 @@ function codeModeLab() {
   cleanup = () => { run++; };
 }
 
-/* ---------- 02 Connect Four with an inspectable minimax bot ---------- */
+/* ---------- 02 Two games, two kinds of bot ---------- */
+const GAME_TABS = [
+  { id: 'ttt', label: 'Tic-tac-toe · solved', render: ticTacToeLab },
+  { id: 'c4', label: 'Connect Four · estimated', render: connectFourLab }
+];
+
+function gamesLab(initial = 'ttt') {
+  content.innerHTML = `
+    <h2 id="dialog-title">Two games, <em>two kinds of bot.</em></h2>
+    <p class="subtext">Tic-tac-toe is small enough for the bot to check every possible game, so it never loses. Connect Four has about 4.5 trillion positions, so its bot can only look a few moves ahead and estimate. Switch between them to compare.</p>
+    <div class="game-tabs" role="tablist" aria-label="Games">
+      ${GAME_TABS.map(g => `<button type="button" role="tab" id="tab-${g.id}" aria-controls="panel-${g.id}">${g.label}</button>`).join('')}
+    </div>
+    ${GAME_TABS.map(g => `<div class="game-panel" role="tabpanel" id="panel-${g.id}" aria-labelledby="tab-${g.id}" hidden></div>`).join('')}`;
+
+  // both games stay mounted, so switching tabs keeps a game in progress
+  const stops = GAME_TABS.map(g => g.render($(`#panel-${g.id}`)));
+  const tabs = GAME_TABS.map(g => $(`#tab-${g.id}`));
+  const select = id => GAME_TABS.forEach((g, i) => {
+    const on = g.id === id;
+    tabs[i].setAttribute('aria-selected', String(on));
+    tabs[i].tabIndex = on ? 0 : -1;
+    $(`#panel-${g.id}`).hidden = !on;
+  });
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => select(GAME_TABS[i].id));
+    tab.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      e.preventDefault();
+      const next = (i + (e.key === 'ArrowRight' ? 1 : GAME_TABS.length - 1)) % GAME_TABS.length;
+      select(GAME_TABS[next].id);
+      tabs[next].focus();
+    });
+  });
+  select(GAME_TABS.some(g => g.id === initial) ? initial : 'ttt');
+  cleanup = () => stops.forEach(stop => stop());
+}
+
+/* Connect Four with an inspectable minimax bot */
 const c4Score = { you: 0, bot: 0, draw: 0 };
 let c4Depth = 3;
 
-function connectFourLab() {
+function connectFourLab(root) {
   const { COLS, ROWS, HUMAN, BOT } = C4;
-  content.innerHTML = `
-    <h2 id="dialog-title">Four in a <em>row.</em></h2>
-    <p class="subtext">You’re yellow, the bot is green. After each move it shows how it scored every column, so you can see why it played where it did.</p>
+  root.innerHTML = `
+    <p class="panel-intro"><strong>Estimated.</strong> Far too many positions to check, so the bot looks 1, 3 or 6 moves ahead and scores the positions where it stops. That means it can be beaten. You’re yellow, the bot is green.</p>
     <div class="lab-body">
       <div>
         <div class="c4" id="c4" role="group" aria-label="Connect Four board, columns 1 to 7. Use the arrow keys to move between columns."></div>
@@ -302,16 +339,15 @@ function connectFourLab() {
     render();
   });
   reset(false);
-  cleanup = () => clearTimeout(timer);
+  return () => clearTimeout(timer);
 }
 
-/* ---------- 03 Tic-tac-toe with a perfect bot ---------- */
+/* Tic-tac-toe with a perfect bot */
 const tttScore = { you: 0, bot: 0, draw: 0 };
 
-function ticTacToeLab() {
-  content.innerHTML = `
-    <h2 id="dialog-title">Your move, <em>human.</em></h2>
-    <p class="subtext">You’re ×, the bot is ○. Play, undo a turn, or reveal what every move leads to.</p>
+function ticTacToeLab(root) {
+  root.innerHTML = `
+    <p class="panel-intro"><strong>Solved.</strong> Before every move the bot plays out every way the rest of the game could go, so it can’t lose. The best you can do is a draw. You’re ×, the bot is ○.</p>
     <div class="lab-body">
       <div>
         <div class="ttt" id="ttt" role="group" aria-label="Tic-tac-toe board"></div>
@@ -394,7 +430,10 @@ function ticTacToeLab() {
     render();
     timer = setTimeout(() => {
       const move = botMove(board, mode);
-      if (move) { board[move.index] = 'O'; reason.textContent = `Square ${move.index + 1}: ${move.reason}`; }
+      if (move) {
+        board[move.index] = 'O';
+        reason.textContent = `Square ${move.index + 1}: ${move.reason}${move.nodes ? ` It checked ${num(move.nodes)} positions, every way the game could still go.` : ''}`;
+      }
       busy = false;
       if (!end()) { status.textContent = 'Your turn. What will you try?'; render(); }
     }, reduced() ? 0 : 220);
@@ -428,10 +467,10 @@ function ticTacToeLab() {
     render();
   });
   reset();
-  cleanup = () => clearTimeout(timer);
+  return () => clearTimeout(timer);
 }
 
-/* ---------- 04 Pathfinding: BFS vs A* ---------- */
+/* ---------- 03 Pathfinding: BFS vs A* ---------- */
 function pathLab() {
   content.innerHTML = `
     <h2 id="dialog-title">Find a way <em>through.</em></h2>
@@ -654,8 +693,8 @@ function askLab() {
 /* ---------- quick navigation (Cmd/Ctrl + K) ---------- */
 const COMMANDS = [
   { title: 'Run Code Mode on toy data', type: 'Experiment', keywords: 'agentic ai mcp sandbox tokens code mode', lab: 'codemode' },
-  { title: 'Play Connect Four', type: 'Experiment', keywords: 'game minimax alpha beta bot connect four', lab: 'c4' },
-  { title: 'Play tic-tac-toe', type: 'Experiment', keywords: 'game minimax tic tac toe bot', lab: 'ttt' },
+  { title: 'Play Connect Four', type: 'Experiment', keywords: 'game minimax alpha beta bot connect four estimated', lab: 'games', tab: 'c4' },
+  { title: 'Play tic-tac-toe', type: 'Experiment', keywords: 'game minimax tic tac toe bot solved', lab: 'games', tab: 'ttt' },
   { title: 'Draw a maze', type: 'Experiment', keywords: 'pathfinding bfs astar a* algorithms maze', lab: 'path' },
   { title: 'Tune request performance', type: 'Experiment', keywords: 'backend network api java latency performance', lab: 'requests' },
   { title: 'Ask about Siddharth', type: 'Guided assistant', keywords: 'chat resume questions background', lab: 'ask' },
@@ -685,7 +724,7 @@ function renderCommands() {
     b.innerHTML = `<span>${esc(item.title)}</span><small>${esc(item.type.toUpperCase())} ↗</small>`;
     b.addEventListener('click', () => {
       command.close();
-      if (item.lab) openLab(item.lab, commandTrigger);
+      if (item.lab) openLab(item.lab, commandTrigger, item.tab);
       else if (item.target) scrollToEl($(item.target));
       else { const a = document.createElement('a'); a.href = item.href; a.download = ''; a.click(); }
     });
