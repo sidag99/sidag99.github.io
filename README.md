@@ -5,7 +5,7 @@ Personal site and lab of Siddharth Agarwal — full-stack engineer (Java, TypeSc
 Static files, no build step and no backend:
 
 - `index.html` — content: experience, the Code Mode project, playground cards, about, contact.
-- `style.css` — light and dark themes, responsive layout, reduced-motion support.
+- `style.css` — light and dark themes, responsive layout, reduced-motion support. Dark mode follows the device until the visitor picks a theme with the sun/moon button; the choice is remembered, and a tiny script in the page head applies it before the first paint.
 - `js/app.js` — page interactions: experiment dialogs and quick navigation (Cmd/Ctrl K).
 - `js/engine.mjs` — pure logic for the demos and games, testable in Node.
 - `js/i18n.mjs` — the German version of the page and the EN/DE switch. English lives in `index.html`; German text is matched to it by its English HTML. The page starts in German for German-language browsers, remembers the visitor's choice, and `?lang=de` or `?lang=en` forces a language.

@@ -17,6 +17,32 @@ const pct = x => tr(`${x}%`, `${x} %`);
 applyPage();
 $('#lang-toggle').addEventListener('click', () => setLang(getLang() === 'de' ? 'en' : 'de'));
 
+/* ---------- light / dark theme: follows the device until the visitor picks one ---------- */
+const root = document.documentElement, themeButton = $('#theme-toggle');
+const systemDark = matchMedia('(prefers-color-scheme: dark)');
+const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>';
+const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>';
+const theme = () => root.dataset.theme || (systemDark.matches ? 'dark' : 'light');
+
+function renderThemeButton() {
+  const dark = theme() === 'dark';
+  const label = dark ? tr('Switch to light mode', 'Zum hellen Design wechseln') : tr('Switch to dark mode', 'Zum dunklen Design wechseln');
+  themeButton.innerHTML = dark ? SUN : MOON;
+  themeButton.setAttribute('aria-label', label);
+  themeButton.title = label;
+  const paper = getComputedStyle(root).getPropertyValue('--paper').trim();
+  $$('meta[name="theme-color"]').forEach(m => m.setAttribute('content', paper));
+}
+themeButton.addEventListener('click', () => {
+  const next = theme() === 'dark' ? 'light' : 'dark';
+  root.dataset.theme = next;
+  try { localStorage.setItem('theme', next); } catch { /* the choice just won't persist */ }
+  renderThemeButton();
+});
+systemDark.addEventListener('change', renderThemeButton);
+onLangChange(renderThemeButton);
+renderThemeButton();
+
 /* ---------- featured panel: play its animation once it scrolls into view ---------- */
 const featurePanel = $('#feature-panel');
 if ('IntersectionObserver' in window) {

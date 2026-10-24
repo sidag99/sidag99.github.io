@@ -31,8 +31,9 @@
   --sans: "DM Sans", system-ui, sans-serif;
   color-scheme: light;
 }
+/* Dark theme: follows the device unless the visitor picks a theme with the header button. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --paper: #131b17;
     --paper-2: #18221d;
     --sage: #1b2620;
@@ -55,6 +56,29 @@
     --shadow: rgba(0, 0, 0, 0.45);
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --paper: #131b17;
+  --paper-2: #18221d;
+  --sage: #1b2620;
+  --sage-2: #24332b;
+  --ink: #e3e9e1;
+  --muted: #a3b1a7;
+  --green: #8cc2a5;
+  --green-hover: #a5d3ba;
+  --on-green: #10201a;
+  --line: #2b3a32;
+  --line-2: #3a4b41;
+  --accent: #e0a36d;
+  --accent-soft: #c98d58;
+  --wall: #6f8468;
+  --explored: #35503f;
+  --panel: #0d1612;
+  --panel-ink: #dce6df;
+  --panel-dim: #8a9f94;
+  --contact: #1b3a2e;
+  --shadow: rgba(0, 0, 0, 0.45);
+  color-scheme: dark;
 }
 
 /* ---------- base ---------- */
@@ -114,11 +138,14 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 }
 .command-trigger kbd { font: 12.5px var(--mono); color: var(--muted); }
 @media (hover: none) { .command-trigger kbd { display: none; } }
-.lang-toggle {
+.header-tools { display: flex; align-items: center; gap: 8px; }
+.lang-toggle, .theme-toggle {
   border: 1px solid var(--line-2); background: transparent; border-radius: 999px; padding: 6px 13px;
-  font: 500 13.5px var(--mono); letter-spacing: 0.08em;
+  font: 500 13.5px var(--mono); letter-spacing: 0.08em; line-height: 1.4;
 }
-.lang-toggle:hover { background: var(--green); border-color: var(--green); color: var(--on-green); }
+.theme-toggle { display: inline-grid; place-items: center; width: 36px; height: 33px; padding: 0; }
+.theme-toggle svg { width: 17px; height: 17px; }
+.lang-toggle:hover, .theme-toggle:hover { background: var(--green); border-color: var(--green); color: var(--on-green); }
 .header-contact { font-size: 16.5px; }
 .header-contact span { margin-left: 18px; }
 
@@ -499,7 +526,7 @@ input[type="range"] { width: 100%; accent-color: var(--green); margin: 12px 0 0;
   .wrap, .site-header { width: calc(100% - 32px); }
   .site-header { flex-wrap: wrap; gap: 12px 18px; min-height: 0; padding: 14px 0; }
   .wordmark { font-size: 38px; }
-  .lang-toggle { margin-left: auto; }
+  .header-tools { margin-left: auto; }
   .site-header nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; font-size: 16px; }
   .command-trigger { display: none; }
   .hero h1 { font-size: clamp(44px, 12vw, 60px); }
