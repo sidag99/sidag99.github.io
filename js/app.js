@@ -186,9 +186,11 @@ function codeModeLab() {
     $('#cm-raw').textContent = fmt(rawBytes);
     $('#cm-cm').textContent = fmt(cmBytes);
     $('#cm-fill').style.width = `${Math.max(cmBytes / rawBytes * 100, 0.5)}%`;
+    // ratio from the rounded token counts shown, so the sentence adds up
+    const rawTokens = Math.round(rawBytes / 4), cmTokens = Math.max(1, Math.round(cmBytes / 4)), ratio = rawTokens / cmTokens;
     $('#cm-note').textContent = tr(
-      `About ${num(cmBytes / 4)} tokens instead of ${num(rawBytes / 4)}, ${num(rawBytes / cmBytes)}× less. Raw means the full ${tables} table${q.raw.length > 1 ? 's' : ''}.`,
-      `Etwa ${num(cmBytes / 4)} statt ${num(rawBytes / 4)} Tokens, ${num(rawBytes / cmBytes)}× weniger. „Roh“ heißt: die vollständige${q.raw.length > 1 ? 'n Tabellen' : ' Tabelle'} ${tables}.`);
+      `About ${num(cmTokens)} tokens instead of ${num(rawTokens)}, ${num(ratio)}× less. Raw means the full ${tables} table${q.raw.length > 1 ? 's' : ''}.`,
+      `Etwa ${num(cmTokens)} statt ${num(rawTokens)} Tokens, ${num(ratio)}× weniger. „Roh“ heißt: die vollständige${q.raw.length > 1 ? 'n Tabellen' : ' Tabelle'} ${tables}.`);
     $('#cm-peek').textContent = json(q.raw[0]).slice(0, 700) + ' …';
   }
 
