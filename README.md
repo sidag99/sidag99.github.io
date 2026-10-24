@@ -1,6 +1,6 @@
 # sidag99.github.io
 
-Personal site and lab of Siddharth Agarwal — full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. Served by GitHub Pages at https://sidag99.github.io
+Personal site and lab of Siddharth Agarwal — full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. Served by GitHub Pages at https://siddharth-agarwal.is-a.dev (the custom domain in `CNAME`; https://sidag99.github.io redirects there)
 
 Static files, no build step and no backend:
 
