@@ -6,10 +6,12 @@ Static files, no build step and no backend:
 
 - `index.html` — content: experience, the Code Mode project, playground cards, about, contact.
 - `style.css` — light and dark themes, responsive layout, reduced-motion support.
-- `js/app.js` — page interactions: experiment dialogs, skill explorer, quick navigation (Cmd/Ctrl K).
+- `js/app.js` — page interactions: experiment dialogs and quick navigation (Cmd/Ctrl K).
 - `js/engine.mjs` — pure logic for the demos and games, testable in Node.
 - `tests/engine.test.mjs` — tests for the bots, pathfinding, request model, Code Mode demo and assistant.
 - `assets/Resume_Siddharth_Agarwal.pdf` — downloadable résumé.
+- `assets/fonts/` — self-hosted fonts (SIL Open Font License), so the site makes no third-party requests.
+- `assets/og-image.png` — link-preview image for LinkedIn and other sites.
 
 ## Demos
 

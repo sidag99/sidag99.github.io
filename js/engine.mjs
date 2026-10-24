@@ -268,7 +268,7 @@ export function makeShopData(n) {
     orders.push({ id, customer_id: customer.id, created_at: day(created), payment: 'paid', items, total_eur: Math.round(items.reduce((s, x) => s + x.qty * x.unit_eur, 0) * 100) / 100, ship_to: customer.city });
     const r = rand();
     const status = id === 12345 ? 'delayed' : r < 0.62 ? 'delivered' : r < 0.85 ? 'in_transit' : r < 0.93 ? 'delayed' : 'label_created';
-    shipments.push({ id: `SHP-${id}`, order_id: id, carrier: pick(CARRIERS), status, eta: day(created + 3 + Math.floor(rand() * 6)), events: [{ at: day(created), event: 'label_created' }, { at: day(created + 1), event: 'picked_up' }] });
+    shipments.push({ id: `SHP-${id}`, order_id: id, carrier: pick(CARRIERS), status, eta: id === 12345 ? '2026-10-19' : day(created + 3 + Math.floor(rand() * 6)), events: [{ at: day(created), event: 'label_created' }, { at: day(created + 1), event: 'picked_up' }] });
   }
   return { users, orders, shipments };
 }

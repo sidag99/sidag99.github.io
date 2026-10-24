@@ -11,10 +11,14 @@
 <meta property="og:description" content="Four years shipping a Jira-integrated SaaS product. Now building applied and agentic AI and studying Data Science at TU Darmstadt.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sidag99.github.io/">
+<meta property="og:image" content="https://sidag99.github.io/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Siddharth Agarwal, full-stack engineer in Darmstadt, open to Werkstudent roles and internships">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23244d3d'/%3E%3Ctext x='32' y='43' fill='%23f5f3ea' font-family='Georgia,serif' font-size='35' text-anchor='middle'%3Esa%3C/text%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/dm-serif-display-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <script type="module" src="js/app.js"></script>
 </head>
@@ -44,7 +48,6 @@
         <a class="button" href="#playground">Enter the playground</a>
         <a class="link" href="assets/Resume_Siddharth_Agarwal.pdf" download>Download résumé ↓</a>
       </div>
-      <p class="hero-note">+ Full-stack engineering. Applied and agentic AI. A little experimentation.</p>
     </div>
 
     <div class="hero-art">
@@ -64,24 +67,15 @@
         <g class="cool"><circle cx="78" cy="282" r="7"/><circle cx="355" cy="118" r="7"/><circle cx="220" cy="369" r="7"/></g>
         <g class="tag"><text x="9" y="96">BUILD</text><text x="352" y="306">EXPLORE</text><text x="238" y="28">ITERATE</text></g>
       </svg>
-      <div class="launchers" aria-label="Jump into an experiment">
-        <button type="button" data-open="c4">Play Connect Four</button>
-        <button type="button" data-open="path">Draw a maze ↗</button>
-        <button type="button" data-open="ttt">Play tic-tac-toe</button>
-      </div>
       <div class="art-bottom" aria-hidden="true"><span>IDEAS ↔ EXPERIMENTS ↔ SOFTWARE</span><span class="cross">✳</span></div>
     </div>
 
-    <div class="hero-bottom">
-      <p>Currently studying Computer Science (Data Science)<br><strong>Technische Universität Darmstadt</strong></p>
-      <a href="#work">SCROLL TO EXPLORE <span aria-hidden="true">↓</span></a>
-    </div>
   </section>
 
   <section id="work" class="section wrap">
     <div class="section-heading">
       <p class="eyebrow">01 / Selected experience</p>
-      <h2>From the interface<br>to the <em>infrastructure.</em></h2>
+      <h2>From the interface<br>to the <em>database.</em></h2>
       <p>Four years building B2B software at Navarambh, and an internship in test automation before that.</p>
     </div>
 
@@ -97,7 +91,7 @@
 
       <div class="rows">
         <details open>
-          <summary><span class="row-num">01</span><span>Rebuilding the frontend foundation</span><span class="row-icon" aria-hidden="true">+</span></summary>
+          <summary><span class="row-num">01</span><span class="row-title">Rebuilding the frontend foundation<small>Vue 3 migration · 100+ components</small></span><span class="row-icon" aria-hidden="true">+</span></summary>
           <div class="row-body">
             <ul>
               <li>Led the move from Vue&nbsp;2 to Vue&nbsp;3 and TypeScript, reworking 100+ components and bringing in Quasar so the frontend could keep evolving.</li>
@@ -107,7 +101,7 @@
           </div>
         </details>
         <details>
-          <summary><span class="row-num">02</span><span>Making data move faster</span><span class="row-icon" aria-hidden="true">+</span></summary>
+          <summary><span class="row-num">02</span><span class="row-title">Making data move faster<small>Up to 40% faster workflows</small></span><span class="row-icon" aria-hidden="true">+</span></summary>
           <div class="row-body">
             <ul>
               <li>Cut load times on key workflows by up to 40% by merging APIs and rewriting heavy queries with Querydsl.</li>
@@ -117,7 +111,7 @@
           </div>
         </details>
         <details>
-          <summary><span class="row-num">03</span><span>Bringing AI into real workflows</span><span class="row-icon" aria-hidden="true">+</span></summary>
+          <summary><span class="row-num">03</span><span class="row-title">Bringing AI into real workflows<small>Generative AI features in production</small></span><span class="row-icon" aria-hidden="true">+</span></summary>
           <div class="row-body">
             <ul>
               <li>Took generative AI features on Azure OpenAI from prompt design to production; they became part of how new customers were won.</li>
@@ -127,7 +121,7 @@
           </div>
         </details>
         <details>
-          <summary><span class="row-num">04</span><span>Before that: SDET intern at Frugal Testing</span><span class="row-icon" aria-hidden="true">+</span></summary>
+          <summary><span class="row-num">04</span><span class="row-title">Before that: SDET intern at Frugal Testing<small>Load tests at 1,000+ concurrent users</small></span><span class="row-icon" aria-hidden="true">+</span></summary>
           <div class="row-body">
             <ul>
               <li>Load-tested auction sites and banking portals with JMeter at 1,000+ concurrent users and helped tune them.</li>
@@ -141,20 +135,13 @@
       </div>
     </div>
 
-    <div class="explorer">
-      <div class="explorer-head"><h3>Pick a skill. See the evidence.</h3><p>Click to explore ↗</p></div>
-      <div class="explorer-layout">
-        <div class="skill-tabs" role="tablist" aria-label="Skills"></div>
-        <div class="skill-evidence" role="tabpanel" id="skill-evidence" tabindex="0"></div>
-      </div>
-    </div>
   </section>
 
   <section id="code-mode" class="section wrap feature">
     <div class="section-heading">
       <p class="eyebrow">02 / Recent project</p>
       <h2>Code Mode for<br><em>AnythingMCP.</em></h2>
-      <p>Keeping AI agents from pulling whole tables into the prompt · Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH</p>
+      <p>Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH</p>
     </div>
     <div class="feature-grid">
       <div>
@@ -207,24 +194,24 @@
     <div class="wrap">
       <div class="section-heading">
         <p class="eyebrow">03 / The playground</p>
-        <h2>Less scrolling.<br><em>More trying things.</em></h2>
-        <p>Five small experiments you can get your hands on. No accounts, no setup, nothing sent anywhere.</p>
+        <h2>Small experiments,<br><em>run in your browser.</em></h2>
+        <p>Five things to try, from the request timing behind my backend work to two game bots that explain their moves. No accounts, no setup.</p>
       </div>
 
       <div class="lab-grid">
         <article class="lab-card">
-          <span class="card-meta"><span>01 / Game AI</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="card-meta"><span>01 / Systems</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="mini mini-wait" aria-hidden="true"><i style="width:30%"></i><i style="width:30%;margin-left:30%"></i><i style="width:30%;margin-left:60%"></i><i style="width:46%;opacity:.55"></i></span>
+          <h3>Where does the waiting happen?</h3>
+          <p>Change the workload and request strategy, then watch an interface get its data.</p>
+          <button class="card-cta" type="button" data-lab="requests">Tune the requests <span aria-hidden="true">↗</span></button>
+        </article>
+        <article class="lab-card">
+          <span class="card-meta"><span>02 / Game AI</span><span class="mark" aria-hidden="true">↗</span></span>
           <span class="mini" aria-hidden="true"><span class="mini-c4" id="mini-c4"></span></span>
           <h3>Four in a row.</h3>
           <p>Play Connect Four against a bot that shows how it scored every column before it moves.</p>
           <button class="card-cta" type="button" data-lab="c4">Play Connect Four <span aria-hidden="true">↗</span></button>
-        </article>
-        <article class="lab-card">
-          <span class="card-meta"><span>02 / Game theory</span><span class="mark" aria-hidden="true">↗</span></span>
-          <span class="mini" aria-hidden="true"><span class="mini-ttt"><span>×</span><span></span><span>○</span><span></span><span>×</span><span></span><span>○</span><span></span><span class="ghost">×</span></span></span>
-          <h3>Your move, human.</h3>
-          <p>Challenge a perfect minimax bot at tic-tac-toe, then reveal where every move leads.</p>
-          <button class="card-cta" type="button" data-lab="ttt">Play tic-tac-toe <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
           <span class="card-meta"><span>03 / Algorithms</span><span class="mark" aria-hidden="true">↗</span></span>
@@ -241,11 +228,11 @@
           <button class="card-cta" type="button" data-lab="path">Open the maze <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
-          <span class="card-meta"><span>04 / Systems</span><span class="mark" aria-hidden="true">↗</span></span>
-          <span class="mini mini-wait" aria-hidden="true"><i style="width:30%"></i><i style="width:30%;margin-left:30%"></i><i style="width:30%;margin-left:60%"></i><i style="width:46%;opacity:.55"></i></span>
-          <h3>Where does the waiting happen?</h3>
-          <p>Change the workload and request strategy, then watch an interface get its data.</p>
-          <button class="card-cta" type="button" data-lab="requests">Tune the requests <span aria-hidden="true">↗</span></button>
+          <span class="card-meta"><span>04 / Game theory</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="mini" aria-hidden="true"><span class="mini-ttt"><span>×</span><span></span><span>○</span><span></span><span>×</span><span></span><span>○</span><span></span><span class="ghost">×</span></span></span>
+          <h3>Your move, human.</h3>
+          <p>Challenge a perfect minimax bot at tic-tac-toe, then reveal where every move leads.</p>
+          <button class="card-cta" type="button" data-lab="ttt">Play tic-tac-toe <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
           <span class="card-meta"><span>05 / Guided assistant</span><span class="mark" aria-hidden="true">↗</span></span>
@@ -260,7 +247,7 @@
         <span class="progress-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
         <span id="lab-progress" role="status">0 / 5 experiments explored · Pick one to get started.</span>
       </div>
-      <p class="lab-footnote"><span class="dot" aria-hidden="true"></span>Built for this portfolio with help from AI coding assistants · Runs in your browser · The assistant uses prepared answers, not a language model · <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Source on GitHub</a></p>
+      <p class="lab-footnote"><span class="dot" aria-hidden="true"></span>Made for this site with help from AI coding tools · Everything runs in your browser · The assistant gives prepared answers from my résumé, it isn’t a language model · <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Source on GitHub</a></p>
     </div>
   </section>
 
@@ -274,7 +261,6 @@
         <p class="large">I like the part of engineering where a product gets noticeably better for the people using it.</p>
         <p>A page that loads faster, a migration nobody has to think about afterwards, an AI feature that saves someone real work instead of just demoing well. That’s what four years on AIO Tests taught me to care about.</p>
         <p>Today I’m doing an MSc in Computer Science with a Data Science focus at TU&nbsp;Darmstadt, and exploring applied and agentic AI alongside it. I also love hackathons: an unfamiliar problem, a new team and a deadline measured in days. So far they’ve had me build everything from a gesture-controlled ATM PIN pad to a sandbox for AI agents.</p>
-        <p>My curiosity also goes beyond the screen: I’ve built a connected 3D printer, an autonomous delivery bot and an augmented reality architecture app.</p>
         <a class="link" href="assets/Resume_Siddharth_Agarwal.pdf" download>The full story, in one PDF ↓</a>
         <div class="award">
           <span aria-hidden="true">✳</span>
@@ -290,7 +276,7 @@
           <div class="timeline-row"><span>2017 — 2021</span><div><strong>BE, Computer Engineering</strong><p>Thapar Institute of Engineering &amp; Technology, Punjab</p></div></div>
         </div>
         <div class="toolbox">
-          <h3 style="font-size:19px;font-weight:500">Things I work with</h3>
+          <h3>Things I work with</h3>
           <div class="tags"><span>Java</span><span>Vue.js</span><span>TypeScript</span><span>JavaScript</span><span>SQL</span><span>Querydsl</span><span>C++</span><span>React</span><span>Azure OpenAI</span><span>MCP</span><span>Atlassian APIs</span><span>Selenium</span><span>JMeter</span></div>
           <p class="muted">English (C1) · German (learning, B1)</p>
         </div>

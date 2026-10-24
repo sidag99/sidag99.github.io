@@ -86,8 +86,8 @@ function codeModeLab() {
           </div>
         </div>
         <div>
-          <label class="range-label" for="cm-size">Orders in the database <output id="cm-size-out" for="cm-size">5,000</output></label>
-          <input type="range" id="cm-size" min="500" max="20000" step="500" value="5000">
+          <label class="range-label" for="cm-size">Orders in the database <output id="cm-size-out" for="cm-size">3,650</output></label>
+          <input type="range" id="cm-size" min="500" max="20000" step="50" value="3650">
         </div>
         <div class="explanation">
           <h3>WHAT YOU’RE COMPARING</h3>
@@ -107,7 +107,7 @@ function codeModeLab() {
         </div>
       </figure>
     </div>
-    <p class="insight">The data is generated in your browser and the script really runs against it. Tokens are estimated at 4 bytes each. The 1.69 MB → 41 B figure in the project write-up is from our hackathon benchmark.</p>`;
+    <p class="insight">The data is generated in your browser and the script really runs against it. Tokens are estimated at 4 bytes each. It starts at the size of our hackathon benchmark (1.69 MB of raw output); drag the slider to see how each approach scales.</p>`;
 
   const enc = new TextEncoder(), size = $('#cm-size');
   const bytes = s => enc.encode(s).length;
@@ -651,51 +651,6 @@ function askLab() {
   $$('.chat-options button').forEach(b => b.addEventListener('click', () => ask(b.textContent)));
 }
 
-/* ---------- skill explorer ---------- */
-const SKILLS = [
-  { name: 'Frontend', tools: 'Vue.js · TypeScript · Quasar', title: 'A foundation that scales.', text: 'Led the Vue 2 → Vue 3 and TypeScript migration at AIO Tests, reworking 100+ components, and built 50+ reusable UI components used across the product.', actions: [{ label: 'Read about the migration', row: 0 }] },
-  { name: 'Backend', tools: 'Java · SQL · Querydsl', title: 'Less waiting. More doing.', text: 'Built Java services for large PDF exports, imports and migrations. Merged APIs and rewrote heavy Querydsl queries for up to 40% faster workflows.', actions: [{ label: 'Try the request simulator', lab: 'requests' }, { label: 'Read more', row: 1 }] },
-  { name: 'Applied & agentic AI', tools: 'Azure OpenAI · MCP · Sandboxing', title: 'AI inside the workflow.', text: 'Shipped generative AI features on Azure OpenAI from prompt design to production. At the Black Forest Hackathon, built Code Mode: agents write a script that runs next to the data, so only the answer reaches the model.', actions: [{ label: 'Run Code Mode on toy data', lab: 'codemode' }, { label: 'Read the case study', href: '#code-mode' }] },
-  { name: 'Algorithms', tools: 'Minimax · Alpha-beta · BFS · A*', title: 'Try the idea. Inspect the logic.', text: 'Two game bots and a pathfinding lab, built for this portfolio with help from AI coding assistants. Each one shows its reasoning, so you can check it.', actions: [{ label: 'Play Connect Four', lab: 'c4' }, { label: 'Draw a maze', lab: 'path' }] },
-  { name: 'Testing', tools: 'Java · Selenium · JMeter', title: 'Confidence under load.', text: 'As an SDET intern at Frugal Testing, load-tested auction and banking sites at 1,000+ concurrent users, wrote end-to-end Selenium suites, and mentored the next group of interns.', actions: [{ label: 'Read about the internship', row: 3 }] },
-  { name: 'Hardware', tools: 'Raspberry Pi · Arduino · ESP8266', title: 'Code, out in the world.', text: 'Built a networked 3D printer with Raspberry Pi and OctoPi, an autonomous delivery robot with Arduino, ESP8266 and Firebase, and an AR app with Unity.', actions: [{ label: 'See the earlier experiments', href: '#earlier' }] }
-];
-const tabs = SKILLS.map((skill, i) => {
-  const b = document.createElement('button');
-  b.type = 'button';
-  b.id = `skill-tab-${i}`;
-  b.textContent = skill.name;
-  b.setAttribute('role', 'tab');
-  b.setAttribute('aria-controls', 'skill-evidence');
-  b.addEventListener('click', () => selectSkill(i));
-  b.addEventListener('keydown', e => {
-    const n = SKILLS.length;
-    const next = { ArrowRight: (i + 1) % n, ArrowLeft: (i + n - 1) % n, Home: 0, End: n - 1 }[e.key];
-    if (next !== undefined) { e.preventDefault(); selectSkill(next); tabs[next].focus(); }
-  });
-  $('.skill-tabs').append(b);
-  return b;
-});
-function selectSkill(index) {
-  const skill = SKILLS[index], panel = $('#skill-evidence');
-  tabs.forEach((b, i) => { b.setAttribute('aria-selected', String(i === index)); b.tabIndex = i === index ? 0 : -1; });
-  panel.setAttribute('aria-labelledby', tabs[index].id);
-  panel.innerHTML = `<span class="caption">${esc(skill.tools)}</span><h4>${esc(skill.title)}</h4><p>${esc(skill.text)}</p>
-    <p style="display:flex;flex-wrap:wrap;gap:8px 22px;margin:0">${skill.actions.map(a => a.lab
-      ? `<button type="button" class="as-link" data-open="${a.lab}">${esc(a.label)} ↗</button>`
-      : a.href ? `<a href="${a.href}">${esc(a.label)} ↘</a>`
-      : `<button type="button" class="as-link" data-row="${a.row}">${esc(a.label)} ↘</button>`).join('')}</p>`;
-}
-$('#skill-evidence').addEventListener('click', e => {
-  const b = e.target.closest('[data-row]');
-  if (!b) return;
-  const row = $$('.rows details')[+b.dataset.row];
-  row.open = true;
-  scrollToEl(row);
-  $('summary', row).focus({ preventScroll: true });
-});
-selectSkill(0);
-
 /* ---------- quick navigation (Cmd/Ctrl + K) ---------- */
 const COMMANDS = [
   { title: 'Run Code Mode on toy data', type: 'Experiment', keywords: 'agentic ai mcp sandbox tokens code mode', lab: 'codemode' },
@@ -706,8 +661,7 @@ const COMMANDS = [
   { title: 'Ask about Siddharth', type: 'Guided assistant', keywords: 'chat resume questions background', lab: 'ask' },
   { title: 'Code Mode case study', type: 'Recent project', keywords: 'hackathon agentic ai mcp anythingmcp black forest', target: '#code-mode' },
   { title: 'Work experience', type: 'Section', keywords: 'frontend vue typescript java career aio tests jira', target: '#work' },
-  { title: 'Skills and evidence', type: 'Section', keywords: 'skills stack tools', target: '.explorer' },
-  { title: 'About and education', type: 'Section', keywords: 'education msc darmstadt background', target: '#about' },
+  { title: 'About, education and skills', type: 'Section', keywords: 'education msc darmstadt background skills stack tools', target: '#about' },
   { title: 'Earlier hardware projects', type: 'Projects', keywords: 'printer robot ar hardware', target: '#earlier' },
   { title: 'Get in touch', type: 'Contact', keywords: 'email hire werkstudent working student internship', target: '#contact' },
   { title: 'Download résumé', type: 'PDF', keywords: 'cv resume download', href: 'assets/Resume_Siddharth_Agarwal.pdf' }
