@@ -541,7 +541,8 @@ input[type="range"] { width: 100%; accent-color: var(--green); margin: 12px 0 0;
   .panel { padding: 18px 16px; font-size: 13.5px; }
   .compare .row { grid-template-columns: 7.2em 1fr auto; gap: 8px; }
   .playground { padding: 64px 0 40px; }
-  .lab-grid { grid-template-columns: 1fr; }
+  .lab-grid { grid-template-columns: minmax(0, 1fr); }
+  .lab-card { padding: 22px 20px; }
   .lab-progress { flex-wrap: wrap; }
   .timeline-row { grid-template-columns: 1fr; gap: 2px; }
   dialog { padding: 18px 16px; max-height: 94dvh; }
@@ -559,6 +560,13 @@ input[type="range"] { width: 100%; accent-color: var(--green); margin: 12px 0 0;
   .request-axis { margin-left: 52px; }
   .chat-log { height: 260px; }
   .bubble { max-width: 94%; font-size: 16px; }
+}
+@media (max-width: 360px) {
+  .mini-games { gap: 16px; }
+  .mini-games .mini-ttt { width: 90px; height: 90px; }
+  .mini-games .mini-ttt span { font-size: 26px; }
+  .mini-games .mini-c4 { grid-template-columns: repeat(7, 11px); gap: 3px; padding: 6px; }
+  .mini-games .mini-c4 i { width: 11px; height: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
