@@ -153,7 +153,6 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 48px; padding: 72px 0 88px; border-bottom: 1px solid var(--line); }
 .hero .eyebrow { margin-bottom: 28px; display: flex; align-items: center; gap: 12px; }
 .hero h1 { font-size: clamp(56px, 6vw, 92px); margin-bottom: 28px; }
-.hero h1 em { white-space: nowrap; }
 .intro { font-size: 20px; line-height: 1.65; color: var(--muted); max-width: 32em; margin-bottom: 22px; }
 .status {
   display: inline-flex; align-items: center; gap: 10px; font-size: 16px;
@@ -234,7 +233,7 @@ details[open] .row-icon { transform: rotate(45deg); }
 }
 .panel .ask { font-family: var(--sans); font-size: 16px; color: var(--panel-dim); margin: 0 0 16px; }
 .panel .ask b { color: var(--panel-ink); font-weight: 500; }
-.panel pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: inherit; }
+.panel pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; }
 .panel .k { color: #9cc9b4; }
 .panel .s { color: #e9c46a; }
 .panel .result {
@@ -534,7 +533,6 @@ input[type="range"] { width: 100%; accent-color: var(--green); margin: 12px 0 0;
   .site-header nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; font-size: 16px; }
   .command-trigger { display: none; }
   .hero h1 { font-size: clamp(44px, 12vw, 60px); }
-  .hero h1 em { white-space: normal; }
   .intro { font-size: 18px; }
   .hero-art { padding: 48px 10px 14px; }
   .section { padding: 60px 0; }
