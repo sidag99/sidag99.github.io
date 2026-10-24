@@ -1,0 +1,9 @@
+{
+  "name": "sidag99.github.io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "test": "node --test tests/engine.test.mjs"
+  }
+}
