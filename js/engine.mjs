@@ -26,7 +26,25 @@ function minimax(board, turn, depth = 0, stats = { nodes: 0 }) {
   return turn === 'O' ? Math.max(...values) : Math.min(...values);
 }
 
-export function botMove(board, difficulty = 'optimal', random = Math.random) {
+const TTT_REASONS = {
+  en: {
+    casual: 'Casual mode picks a random legal move, so it can make mistakes.',
+    win: 'I found a winning move and took it.',
+    block: 'I blocked your immediate winning threat. Minimax also checked what happens after the block.',
+    centre: 'I took the centre. Among equally good moves, my tie-break prefers the centre, then corners.',
+    search: 'I searched every possible continuation. This move gives me the best guaranteed outcome, assuming you also play perfectly.'
+  },
+  de: {
+    casual: 'Im lockeren Modus wähle ich einen zufälligen Zug und kann daher Fehler machen.',
+    win: 'Ich habe einen Gewinnzug gefunden und ihn gespielt.',
+    block: 'Ich habe Ihre direkte Gewinndrohung blockiert. Minimax hat auch geprüft, was nach dem Block passiert.',
+    centre: 'Ich habe die Mitte genommen. Bei gleich guten Zügen bevorzuge ich die Mitte, dann die Ecken.',
+    search: 'Ich habe jede mögliche Fortsetzung durchsucht. Dieser Zug sichert mir das beste Ergebnis, vorausgesetzt, Sie spielen ebenfalls perfekt.'
+  }
+};
+
+export function botMove(board, difficulty = 'optimal', random = Math.random, lang = 'en') {
+  const R = TTT_REASONS[lang] || TTT_REASONS.en;
   if (outcome(board)) return null;
   const moves = [], stats = { nodes: 0 };
   for (let i = 0; i < 9; i++) {
@@ -36,17 +54,17 @@ export function botMove(board, difficulty = 'optimal', random = Math.random) {
     moves.push({ index: i, score: minimax(next, 'X', 0, stats) });
   }
   if (difficulty === 'casual') {
-    return { ...moves[Math.floor(random() * moves.length)], nodes: 0, reason: 'Casual mode picks a random legal move, so it can make mistakes.' };
+    return { ...moves[Math.floor(random() * moves.length)], nodes: 0, reason: R.casual };
   }
   moves.sort((a, b) => b.score - a.score || TTT_PREFERENCE.indexOf(a.index) - TTT_PREFERENCE.indexOf(b.index));
   const best = moves[0];
   const next = [...board];
   next[best.index] = 'O';
   const blocks = lines.some(l => l.includes(best.index) && l.filter(i => board[i] === 'X').length === 2);
-  const reason = outcome(next)?.winner === 'O' ? 'I found a winning move and took it.'
-    : blocks ? 'I blocked your immediate winning threat. Minimax also checked what happens after the block.'
-    : best.index === 4 && board.every(v => v !== 'O') && board.filter(Boolean).length <= 1 ? 'I took the centre. Among equally good moves, my tie-break prefers the centre, then corners.'
-    : 'I searched every possible continuation. This move gives me the best guaranteed outcome, assuming you also play perfectly.';
+  const reason = outcome(next)?.winner === 'O' ? R.win
+    : blocks ? R.block
+    : best.index === 4 && board.every(v => v !== 'O') && board.filter(Boolean).length <= 1 ? R.centre
+    : R.search;
   return { ...best, nodes: stats.nodes, reason };
 }
 
@@ -139,19 +157,23 @@ export function c4Think(b, depth, me = BOT) {
   return { scores, best, nodes: stats.nodes };
 }
 
-export const c4Label = s => s === null ? '–' : s >= WIN / 2 ? 'win' : s <= -WIN / 2 ? 'loss' : String(s);
+export const c4Label = (s, lang = 'en') => s === null ? '–'
+  : s >= WIN / 2 ? (lang === 'de' ? 'gew.' : 'win')
+  : s <= -WIN / 2 ? (lang === 'de' ? 'verl.' : 'loss')
+  : String(s);
 
 // Plain-language reason for the bot's choice; call before the move is played.
-export function c4Explain(b, res, depth) {
-  const c = res.best, s = res.scores[c];
+export function c4Explain(b, res, depth, lang = 'en') {
+  const c = res.best, s = res.scores[c], col = c + 1, de = lang === 'de';
   b[c].push(HUMAN);
   const blocks = !!c4WinLine(b, c);
   b[c].pop();
-  if (s === WIN + depth) return `Column ${c + 1} wins on the spot.`;
-  if (s >= WIN / 2) return `It found a forced win that starts in column ${c + 1}.`;
-  if (blocks) return `It played column ${c + 1} to block your four in a row.`;
-  if (s <= -WIN / 2) return `Every column loses if you play perfectly, so it chose column ${c + 1}, which holds out longest.`;
-  return `Column ${c + 1} scored highest (${s}) looking ${depth} move${depth > 1 ? 's' : ''} ahead.`;
+  if (s === WIN + depth) return de ? `Spalte ${col} gewinnt sofort.` : `Column ${col} wins on the spot.`;
+  if (s >= WIN / 2) return de ? `Er hat einen erzwungenen Sieg gefunden, der in Spalte ${col} beginnt.` : `It found a forced win that starts in column ${col}.`;
+  if (blocks) return de ? `Er hat Spalte ${col} gespielt, um Ihre Viererreihe zu blockieren.` : `It played column ${col} to block your four in a row.`;
+  if (s <= -WIN / 2) return de ? `Bei perfektem Spiel verliert jede Spalte, also hat er Spalte ${col} gewählt, die am längsten hält.` : `Every column loses if you play perfectly, so it chose column ${col}, which holds out longest.`;
+  return de ? `Spalte ${col} hat am besten abgeschnitten (${s}), ${depth} ${depth > 1 ? 'Züge' : 'Zug'} vorausgeschaut.`
+    : `Column ${col} scored highest (${s}) looking ${depth} move${depth > 1 ? 's' : ''} ahead.`;
 }
 
 /* ---------- Pathfinding: BFS and A* on a grid ---------- */
@@ -204,6 +226,7 @@ export function requestModel(count, latency, strategy = 'sequential') {
 export const CODE_QUESTIONS = [
   {
     label: 'What happened to order 12345?',
+    label_de: 'Was ist mit Bestellung 12345 passiert?',
     raw: ['orders', 'users', 'shipments'],
     code:
 `const o = await tools.orders.get({ id: 12345 })
@@ -213,6 +236,7 @@ return { status: s.status, eta: s.eta, customer: u.name }`
   },
   {
     label: 'How many shipments are delayed?',
+    label_de: 'Wie viele Sendungen sind verspätet?',
     raw: ['shipments'],
     code:
 `const all = await tools.shipments.list()
@@ -221,6 +245,7 @@ return { delayed: late.length, of: all.length }`
   },
   {
     label: 'Who are our top 3 customers?',
+    label_de: 'Wer sind unsere drei besten Kunden?',
     raw: ['orders', 'users'],
     code:
 `const orders = await tools.orders.list()
@@ -292,47 +317,66 @@ export function runCodeQuestion(q, tools) {
 
 /* ---------- Guided résumé assistant (prepared answers, no language model) ---------- */
 
+// Each topic matches English and German questions; the answer follows the page language.
 const answers = [
   {
     keys: /\b(hackathon\w*)\b/i,
-    text: 'Siddharth enjoys hackathons: an unfamiliar problem, a new team and a few days to solve it. His team won first place for NCR Corporation’s problem statement at Smart India Hackathon 2020 with a hand-gesture-based ATM PIN entry system. At the Black Forest Hackathon 2026 his team built Code Mode, a sandbox that lets AI agents answer questions without pulling whole tables into the prompt, and placed 5th of 14.'
+    en: 'Siddharth enjoys hackathons: an unfamiliar problem, a new team and a few days to solve it. His team won first place for NCR Corporation’s problem statement at Smart India Hackathon 2020 with a hand-gesture-based ATM PIN entry system. At the Black Forest Hackathon 2026 his team built Code Mode, a sandbox that lets AI agents answer questions without pulling whole tables into the prompt, and placed 5th of 14.',
+    de: 'Siddharth mag Hackathons: ein unbekanntes Problem, ein neues Team und ein paar Tage Zeit. Beim Smart India Hackathon 2020 gewann sein Team den ersten Platz für die Aufgabe von NCR Corporation, mit einer PIN-Eingabe für Geldautomaten per Handgesten. Beim Black Forest Hackathon 2026 baute sein Team Code Mode, eine Sandbox, mit der KI-Agenten Fragen beantworten, ohne ganze Tabellen in den Prompt zu laden, und belegte Platz 5 von 14.'
   },
   {
     keys: /\b(agent\w*|agentic|mcp|code mode|sandbox|black forest)\b/i,
-    text: 'At the Black Forest Hackathon (Oct 2026) Siddharth’s team of five built Code Mode for AnythingMCP, an open-source MCP gateway. Instead of pulling whole tables into the model’s context, the agent writes a short script that runs in an isolated V8 sandbox next to the data, and only the answer goes back. On one query that was 41 bytes instead of 1.69 MB. They placed 5th of 14. Siddharth broke down the challenge, steered the build (much of it written with AI coding agents) and debugged it to a working demo.'
+    en: 'At the Black Forest Hackathon (Oct 2026) Siddharth’s team of five built Code Mode for AnythingMCP, an open-source MCP gateway. Instead of pulling whole tables into the model’s context, the agent writes a short script that runs in an isolated V8 sandbox next to the data, and only the answer goes back. On one query that was 41 bytes instead of 1.69 MB. They placed 5th of 14. Siddharth broke down the challenge, steered the build (much of it written with AI coding agents) and debugged it to a working demo.',
+    de: 'Beim Black Forest Hackathon (Okt 2026) hat Siddharths Fünferteam Code Mode für AnythingMCP gebaut, ein Open-Source-MCP-Gateway. Statt ganze Tabellen in den Kontext des Modells zu laden, schreibt der Agent ein kurzes Skript, das in einer isolierten V8-Sandbox direkt bei den Daten läuft; nur die Antwort geht zurück. Bei einer Abfrage waren das 41 Bytes statt 1,69 MB. Das Team wurde Fünfter von 14. Siddharth hat die Aufgabe analysiert, die Umsetzung gesteuert (vieles davon mit KI-Coding-Agenten geschrieben) und sie bis zur funktionierenden Demo debuggt.'
   },
   {
-    keys: /\b(contact|email|hire|hiring|job|role|werkstudent|working student|intern\w*|opportunit\w*|available|reach)\b/i,
-    text: 'He’s looking for a Werkstudent (working student) role or internship in software engineering or AI, and is open to the right full-time role. Email: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. As a Werkstudent he can work up to 20 hours a week during the semester and full-time in semester breaks. For a start date, please ask him directly.'
+    keys: /\b(contact|email|e-mail|hire|hiring|job|role|werkstudent\w*|working student|intern\w*|opportunit\w*|available|reach|kontakt\w*|praktik\w*|verfügbar|erreich\w*|bewerb\w*|einstellen|anstellung|stellenangebot\w*)\b/i,
+    en: 'He’s looking for a Werkstudent (working student) role or internship in software engineering or AI, and is open to the right full-time role. Email: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. As a Werkstudent he can work up to 20 hours a week during the semester and full-time in semester breaks. For a start date, please ask him directly.',
+    de: 'Er sucht eine Werkstudentenstelle oder ein Praktikum in Softwareentwicklung oder KI und ist offen für die passende Vollzeitstelle. E-Mail: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. Als Werkstudent kann er im Semester bis zu 20 Stunden pro Woche arbeiten und in den Semesterferien in Vollzeit. Für einen Starttermin fragen Sie ihn bitte direkt.'
   },
   {
-    keys: /\b(ai|openai|azure|generative|llm|prompt\w*|applied)\b/i,
-    text: 'At Navarambh Software, Siddharth took generative AI features on OpenAI and Azure AI from prompt design to production; they helped win new customers. He now works on applied and agentic AI alongside an MSc in Computer Science (Data Science) at TU Darmstadt. Ask about “Code Mode” for his agent sandbox project.'
+    keys: /\b(ai|openai|azure|generative|llm|prompt\w*|applied|ki|künstlich\w*|generativ\w*|angewandt\w*)\b/i,
+    en: 'At Navarambh Software, Siddharth took generative AI features on OpenAI and Azure AI from prompt design to production; they helped win new customers. He now works on applied and agentic AI alongside an MSc in Computer Science (Data Science) at TU Darmstadt. Ask about “Code Mode” for his agent sandbox project.',
+    de: 'Bei Navarambh Software hat Siddharth generative KI-Funktionen auf OpenAI und Azure AI vom Prompt-Design bis in die Produktion gebracht; sie haben geholfen, neue Kunden zu gewinnen. Heute beschäftigt er sich neben seinem Master in Informatik (Data Science) an der TU Darmstadt mit angewandter und agentischer KI. Fragen Sie nach „Code Mode“ für sein Sandbox-Projekt für Agenten.'
   },
   {
-    keys: /\b(skill|skills|stack|tool|tools|language|languages|java|vue|typescript|react|backend|frontend)\b/i,
-    text: 'His core stack is Vue.js, TypeScript, JavaScript and Java, with SQL and Querydsl on the backend. His résumé also lists C++, React, HTML/CSS, Atlassian APIs, OpenAI and Azure AI. He speaks English (C1) and is learning German (B1).'
+    keys: /\b(skill|skills|stack|tool|tools|language|languages|java|vue|typescript|react|backend|frontend|fähigkeit\w*|kenntnis\w*|technologie\w*|sprachen?|programmier\w*|werkzeug\w*)\b/i,
+    en: 'His core stack is Vue.js, TypeScript, JavaScript and Java, with SQL and Querydsl on the backend. His résumé also lists C++, React, HTML/CSS, Atlassian APIs, OpenAI and Azure AI. He speaks English (C1) and is learning German (B1).',
+    de: 'Sein Kern-Stack sind Vue.js, TypeScript, JavaScript und Java, im Backend dazu SQL und Querydsl. In seinem Lebenslauf stehen außerdem C++, React, HTML/CSS, Atlassian-APIs, OpenAI und Azure AI. Er spricht Englisch (C1) und lernt Deutsch (B1).'
   },
   {
-    keys: /\b(educat\w*|study|studies|student|university|degree|master|msc|bachelor)\b/i,
-    text: 'Siddharth is doing an MSc in Computer Science with a Data Science focus at Technische Universität Darmstadt (2025 to present). Before that he earned a BE in Computer Engineering at Thapar Institute of Engineering & Technology (2017–2021).'
+    keys: /\b(educat\w*|study|studies|student|university|degree|master\w*|msc|bachelor|studi\w*|universit\w*|hochschule|abschluss|ausbildung)\b/i,
+    en: 'Siddharth is doing an MSc in Computer Science with a Data Science focus at Technische Universität Darmstadt (2025 to present). Before that he earned a BE in Computer Engineering at Thapar Institute of Engineering & Technology (2017–2021).',
+    de: 'Siddharth macht seinen Master in Informatik mit Schwerpunkt Data Science an der Technischen Universität Darmstadt (seit 2025). Davor hat er einen B.E. in Computer Engineering am Thapar Institute of Engineering & Technology abgeschlossen (2017–2021).'
   },
   {
-    keys: /\b(project\w*|robot|hardware|printer|ar|experiment\w*|game\w*)\b/i,
-    text: 'Recent: Code Mode, an agent sandbox for AnythingMCP (Black Forest Hackathon 2026). Earlier: an IoT-connected 3D printer with Raspberry Pi and OctoPi (2021), an autonomous delivery bot with Arduino, ESP8266 and Firebase (2020), and AR Architect, an Android AR app built with Unity and Vuforia (2019). The games on this page were built for the portfolio with help from AI coding assistants.'
+    keys: /\b(project\w*|robot|hardware|printer|ar|experiment\w*|game\w*|projekt\w*|roboter|drucker|spiel\w*)\b/i,
+    en: 'Recent: Code Mode, an agent sandbox for AnythingMCP (Black Forest Hackathon 2026). Earlier: an IoT-connected 3D printer with Raspberry Pi and OctoPi (2021), an autonomous delivery bot with Arduino, ESP8266 and Firebase (2020), and AR Architect, an Android AR app built with Unity and Vuforia (2019). The games on this page were built for the portfolio with help from AI coding assistants.',
+    de: 'Aktuell: Code Mode, eine Agenten-Sandbox für AnythingMCP (Black Forest Hackathon 2026). Früher: ein vernetzter 3D-Drucker mit Raspberry Pi und OctoPi (2021), ein autonomer Lieferroboter mit Arduino, ESP8266 und Firebase (2020) und AR Architect, eine Android-AR-App mit Unity und Vuforia (2019). Die Spiele auf dieser Seite sind mit Hilfe von KI-Coding-Tools für das Portfolio entstanden.'
   },
   {
-    keys: /\b(award|achievement|win|winner|sih|smart india)\b/i,
-    text: 'Siddharth’s team won first place for problem statement NH447 (NCR Corporation) at Smart India Hackathon 2020 with a hand-gesture-based ATM PIN entry system.'
+    keys: /\b(award|achievement|win|winner|sih|smart india|auszeichnung\w*|preis\w*|gewonnen|sieg\w*|erfolg\w*)\b/i,
+    en: 'Siddharth’s team won first place for problem statement NH447 (NCR Corporation) at Smart India Hackathon 2020 with a hand-gesture-based ATM PIN entry system.',
+    de: 'Siddharths Team hat beim Smart India Hackathon 2020 den ersten Platz für die Aufgabe NH447 (NCR Corporation) gewonnen, mit einer PIN-Eingabe für Geldautomaten, die per Handgesten gesteuert wird.'
   },
   {
-    keys: /\b(experience|work|build|built|career|navarambh|aio|jira|about|who|siddharth|test\w*|sdet)\b/i,
-    text: 'Siddharth worked at Navarambh Software as SDE I and then SDE II from July 2021 to October 2025, working on AIO Tests (aiotests.com), a test management app inside Jira where QA teams write test cases, run test cycles and track defects. He led the Vue 3 / TypeScript migration, built 50+ reusable components and Java services, sped up key workflows by up to 40%, and shipped AI and Jira integrations. Before that he was an SDET intern at Frugal Testing (Jan–Jun 2021).'
+    keys: /\b(experience|work|build|built|career|navarambh|aio|jira|about|who|siddharth|test\w*|sdet|erfahrung\w*|beruf\w*|arbeit\w*|karriere|werdegang)\b/i,
+    en: 'Siddharth worked at Navarambh Software as SDE I and then SDE II from July 2021 to October 2025, working on AIO Tests (aiotests.com), a test management app inside Jira where QA teams write test cases, run test cycles and track defects. He led the Vue 3 / TypeScript migration, built 50+ reusable components and Java services, sped up key workflows by up to 40%, and shipped AI and Jira integrations. Before that he was an SDET intern at Frugal Testing (Jan–Jun 2021).',
+    de: 'Siddharth war von Juli 2021 bis Oktober 2025 bei Navarambh Software, erst als SDE I, dann als SDE II, und hat an AIO Tests gearbeitet (aiotests.com), einer Testmanagement-App in Jira, in der QA-Teams Testfälle schreiben, Testzyklen durchführen und Fehler verfolgen. Er hat die Migration auf Vue 3 / TypeScript geleitet, über 50 wiederverwendbare Komponenten und Java-Services gebaut, wichtige Abläufe um bis zu 40 % beschleunigt sowie KI- und Jira-Integrationen ausgeliefert. Davor war er SDET-Praktikant bei Frugal Testing (Jan–Jun 2021).'
   }
 ];
 
-export function resumeAnswer(question) {
-  if (/^\s*(hello|hi|hey)\b/i.test(question)) return 'Hello! I’m a guided résumé assistant. Ask about Siddharth’s experience, AI work, skills, education, projects, or how to reach him.';
-  return answers.find(a => a.keys.test(question))?.text
-    ?? 'I don’t have a verified answer to that in Siddharth’s résumé. Try experience, AI work, skills, education, projects, or contact. For anything else, please ask him directly.';
+const GREETING = {
+  en: 'Hello! I’m a guided résumé assistant. Ask about Siddharth’s experience, AI work, skills, education, projects, or how to reach him.',
+  de: 'Hallo! Ich bin ein geführter Lebenslauf-Assistent. Fragen Sie nach Siddharths Erfahrung, KI-Arbeit, Fähigkeiten, Studium, Projekten oder wie Sie ihn erreichen.'
+};
+const UNKNOWN = {
+  en: 'I don’t have a verified answer to that in Siddharth’s résumé. Try experience, AI work, skills, education, projects, or contact. For anything else, please ask him directly.',
+  de: 'Dazu habe ich keine verlässliche Antwort aus Siddharths Lebenslauf. Fragen Sie nach Erfahrung, KI-Arbeit, Fähigkeiten, Studium, Projekten oder Kontakt. Alles andere fragen Sie ihn am besten direkt.'
+};
+
+export function resumeAnswer(question, lang = 'en') {
+  const l = lang === 'de' ? 'de' : 'en';
+  if (/^\s*(hello|hi|hey|hallo|moin|servus|guten (tag|morgen|abend))\b/i.test(question)) return GREETING[l];
+  return answers.find(a => a.keys.test(question))?.[l] ?? UNKNOWN[l];
 }

@@ -114,6 +114,11 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 }
 .command-trigger kbd { font: 12.5px var(--mono); color: var(--muted); }
 @media (hover: none) { .command-trigger kbd { display: none; } }
+.lang-toggle {
+  border: 1px solid var(--line-2); background: transparent; border-radius: 999px; padding: 6px 13px;
+  font: 500 13.5px var(--mono); letter-spacing: 0.08em;
+}
+.lang-toggle:hover { background: var(--green); border-color: var(--green); color: var(--on-green); }
 .header-contact { font-size: 16.5px; }
 .header-contact span { margin-left: 18px; }
 
@@ -494,7 +499,8 @@ input[type="range"] { width: 100%; accent-color: var(--green); margin: 12px 0 0;
   .wrap, .site-header { width: calc(100% - 32px); }
   .site-header { flex-wrap: wrap; gap: 12px 18px; min-height: 0; padding: 14px 0; }
   .wordmark { font-size: 38px; }
-  .site-header nav { margin-left: auto; gap: 18px; font-size: 16px; }
+  .lang-toggle { margin-left: auto; }
+  .site-header nav { order: 3; width: 100%; justify-content: space-between; gap: 12px; font-size: 16px; }
   .command-trigger { display: none; }
   .hero h1 { font-size: clamp(44px, 12vw, 60px); }
   .hero h1 em { white-space: normal; }

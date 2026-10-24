@@ -8,6 +8,7 @@ Static files, no build step and no backend:
 - `style.css` — light and dark themes, responsive layout, reduced-motion support.
 - `js/app.js` — page interactions: experiment dialogs and quick navigation (Cmd/Ctrl K).
 - `js/engine.mjs` — pure logic for the demos and games, testable in Node.
+- `js/i18n.mjs` — the German version of the page and the EN/DE switch. English lives in `index.html`; German text is matched to it by its English HTML. The page starts in German for German-language browsers, remembers the visitor's choice, and `?lang=de` or `?lang=en` forces a language.
 - `tests/engine.test.mjs` — tests for the bots, pathfinding, request model, Code Mode demo and assistant.
 - `assets/Resume_Siddharth_Agarwal.pdf` — downloadable résumé.
 - `assets/fonts/` — self-hosted fonts (SIL Open Font License), so the site makes no third-party requests.

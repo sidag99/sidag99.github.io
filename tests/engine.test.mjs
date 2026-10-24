@@ -33,6 +33,7 @@ test('tic-tac-toe bot takes wins, blocks threats, and does not mutate input', ()
   const block = botMove(['X', 'X', '', '', 'O', '', '', '', '']);
   assert.equal(block.index, 2);
   assert.match(block.reason, /blocked/);
+  assert.match(botMove(['X', 'X', '', '', 'O', '', '', '', ''], 'optimal', Math.random, 'de').reason, /blockiert/);
 });
 
 test('human hints reveal forced wins and avoid immediate losses', () => {
@@ -123,4 +124,15 @@ test('assistant stays grounded and treats unknown content as unsupported', () =>
   assert.match(resumeAnswer('Is he available as a working student?'), /Werkstudent/);
   assert.match(resumeAnswer('What is his salary?'), /don’t have a verified answer/);
   assert.match(resumeAnswer('<script>alert(1)</script>'), /don’t have a verified answer/);
+});
+
+test('assistant understands German questions and answers in German', () => {
+  assert.match(resumeAnswer('Welche Berufserfahrung hat er?', 'de'), /Navarambh/);
+  assert.match(resumeAnswer('Sucht er eine Werkstudentenstelle?', 'de'), /20 Stunden/);
+  assert.match(resumeAnswer('Was hat er studiert?', 'de'), /Master in Informatik/);
+  assert.match(resumeAnswer('Welche Fähigkeiten hat er?', 'de'), /Kern-Stack/);
+  assert.match(resumeAnswer('KI & Agenten', 'de'), /Code Mode/);
+  assert.match(resumeAnswer('Hallo', 'de'), /Lebenslauf-Assistent/);
+  assert.match(resumeAnswer('Wie hoch ist sein Gehalt?', 'de'), /keine verlässliche Antwort/);
+  assert.match(resumeAnswer('Education', 'de'), /Technischen Universität/);
 });
