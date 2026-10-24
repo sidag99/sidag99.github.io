@@ -355,6 +355,10 @@ details[open] .row-icon { transform: rotate(45deg); }
 .contact-layout p { font-size: 17.5px; color: #c9d4c3; line-height: 1.7; }
 .contact .button.primary { background: #f5f3ea; color: #244d3d; border-color: #f5f3ea; }
 .contact .button.primary:hover { background: #ffffff; }
+.contact-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.contact .button.on-dark { color: #f5f3ea; border-color: rgba(245, 243, 234, 0.55); }
+.contact .button.on-dark:hover { background: rgba(255, 255, 255, 0.1); border-color: #f5f3ea; }
+.contact-layout .contact-email { margin: 16px 0 0; font: 15px var(--mono); color: #c9d4c3; overflow-wrap: anywhere; user-select: all; }
 .contact a:focus-visible { outline-color: #ebae73; }
 .contact footer { border-top: 1px solid #ffffff30; display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding: 26px 0 34px; font-size: 15px; color: #c9d4c3; }
 .contact footer div { display: flex; gap: 26px; flex-wrap: wrap; }
