@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siddharth Agarwal · Full-stack engineer</title>
+<meta name="description" content="Full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. MSc Computer Science student at TU Darmstadt, open to Werkstudent roles and internships.">
+<meta property="og:title" content="Siddharth Agarwal, full-stack engineer">
+<meta property="og:description" content="Four years shipping a Jira-integrated SaaS product. Now building agentic AI tooling and studying Data Science at TU Darmstadt.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sidag99.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E5E4E'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%23F3F4F1' text-anchor='middle'%3ESA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F3F4F1;
+    --ink: #1C2321;
+    --muted: #59655F;
+    --forest: #2E5E4E;
+    --moss: #DCE6DF;
+    --line: #C9D3CD;
+    --signal: #E8B931;
+    --panel: #1F2A27;
+    --panel-ink: #DCE6DF;
+    --panel-dim: #8FA39A;
+    --measure: 66ch;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #151B19;
+      --ink: #E6ECE8;
+      --muted: #9AAAA2;
+      --forest: #7FB89F;
+      --moss: #22302B;
+      --line: #2F3D38;
+      --panel: #0F1513;
+      --panel-ink: #DCE6DF;
+      --panel-dim: #7E928A;
+    }
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    font-feature-settings: "ss01";
+  }
+  a { color: var(--forest); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--signal); outline-offset: 3px; border-radius: 2px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- top bar ---------- */
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+  .top .mark { font-weight: 800; letter-spacing: -0.01em; text-decoration: none; color: var(--ink); }
+  .top nav { display: flex; gap: 22px; font-size: 0.95rem; }
+  .top nav a { color: var(--muted); text-decoration: none; }
+  .top nav a:hover { color: var(--ink); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: 56px;
+    align-items: center;
+    padding: 56px 0 88px;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 5vw, 3.9rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    font-weight: 800;
+    margin: 0 0 24px;
+  }
+  .hero .lede { font-size: 1.2rem; color: var(--muted); max-width: 34ch; margin: 0 0 28px; }
+  .hero .status {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px;
+    font-size: 0.95rem;
+  }
+  .hero .status::before {
+    content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--forest);
+    box-shadow: 0 0 0 4px var(--moss);
+  }
+  .hero .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn {
+    display: inline-block; padding: 12px 20px; border-radius: 10px; font-weight: 600;
+    text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink);
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+
+  /* the one memorable thing: the code-mode panel */
+  .panel {
+    background: var(--panel); color: var(--panel-ink);
+    border-radius: 18px; padding: 24px 24px 22px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.86rem; line-height: 1.7;
+    box-shadow: 0 30px 60px -30px rgba(20, 40, 33, 0.55);
+  }
+  .panel .ask { font-family: "Schibsted Grotesk", sans-serif; font-size: 0.95rem; color: var(--panel-dim); margin: 0 0 14px; }
+  .panel .ask b { color: var(--panel-ink); font-weight: 600; }
+  .panel pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
+  .panel .k { color: #9CC9B4; }
+  .panel .c { color: var(--panel-dim); }
+  .panel .result {
+    margin-top: 16px; padding: 12px 14px; border-radius: 10px;
+    background: rgba(232, 185, 49, 0.12); border: 1px solid rgba(232, 185, 49, 0.45); color: #F4D98A;
+  }
+  .compare { margin-top: 20px; font-family: "Schibsted Grotesk", sans-serif; font-size: 0.9rem; }
+  .compare .row { display: grid; grid-template-columns: 9.5em 1fr auto; gap: 12px; align-items: center; margin-top: 8px; }
+  .compare .bar { height: 10px; border-radius: 5px; background: #3A4A44; overflow: hidden; }
+  .compare .fill { height: 100%; border-radius: 5px; }
+  .compare .raw .fill { width: 100%; background: #6E8279; }
+  .compare .cm .fill { width: 1.2%; min-width: 4px; background: var(--signal); }
+  .compare .num { color: var(--panel-ink); font-variant-numeric: tabular-nums; }
+  .compare .note { color: var(--panel-dim); margin-top: 12px; font-size: 0.82rem; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .panel .line { opacity: 0; animation: show 0.01s forwards; }
+    .panel .line:nth-child(1) { animation-delay: 0.25s; }
+    .panel .line:nth-child(2) { animation-delay: 0.55s; }
+    .panel .line:nth-child(3) { animation-delay: 0.85s; }
+    .panel .line:nth-child(4) { animation-delay: 1.15s; }
+    .panel .result { opacity: 0; animation: rise 0.5s 1.6s ease-out forwards; }
+    .compare .raw .fill { transform-origin: left; transform: scaleX(0); animation: grow 0.9s 2.0s cubic-bezier(.2,.7,.2,1) forwards; }
+    .compare .cm .fill { opacity: 0; animation: show 0.01s 2.9s forwards; }
+    @keyframes show { to { opacity: 1; } }
+    @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+    @keyframes grow { to { transform: scaleX(1); } }
+  }
+
+  /* ---------- sections ---------- */
+  section { padding: 72px 0; border-top: 1px solid var(--line); }
+  .sec { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; }
+  .sec > h2 {
+    font-size: 1.5rem; letter-spacing: -0.02em; margin: 0; line-height: 1.2; font-weight: 700;
+  }
+  .sec .body { max-width: var(--measure); }
+  .sec .body > p:first-child { margin-top: 0; }
+
+  /* experience timeline: this content really is a sequence */
+  .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+  .timeline::before { content: ""; position: absolute; left: 5px; top: 10px; bottom: 10px; width: 2px; background: var(--line); }
+  .role { position: relative; padding-left: 34px; margin-bottom: 48px; }
+  .role:last-child { margin-bottom: 0; }
+  .role::before {
+    content: ""; position: absolute; left: 0; top: 8px; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--paper); border: 2px solid var(--forest);
+  }
+  .role.current::before { background: var(--forest); }
+  .role h3 { margin: 0; font-size: 1.2rem; letter-spacing: -0.01em; }
+  .role .meta { color: var(--muted); margin: 2px 0 6px; font-size: 0.97rem; }
+  .role .ctx { margin: 0 0 12px; }
+  .role ul { margin: 0; padding-left: 1.1em; }
+  .role li { margin-bottom: 8px; }
+  .role li::marker { color: var(--forest); }
+  .progress { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; font-size: 0.9rem; }
+  .progress span { padding: 3px 10px; border-radius: 6px; background: var(--moss); }
+
+  /* featured project */
+  .feature { background: var(--moss); border-radius: 18px; padding: 32px; margin-bottom: 40px; }
+  .feature h3 { font-size: 1.6rem; letter-spacing: -0.02em; margin: 0 0 6px; line-height: 1.15; }
+  .feature .meta { color: var(--muted); margin: 0 0 18px; }
+  .feature p { max-width: var(--measure); }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0 8px; }
+  .facts div { border-top: 2px solid var(--forest); padding-top: 10px; }
+  .facts strong { display: block; font-size: 1.35rem; letter-spacing: -0.02em; }
+  .facts span { color: var(--muted); font-size: 0.93rem; }
+
+  .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
+  .projects h3 { margin: 0 0 4px; font-size: 1.1rem; }
+  .projects .meta { color: var(--muted); font-size: 0.93rem; margin: 0 0 6px; }
+  .projects p { margin: 0; }
+
+  .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; }
+  .skills h3 { font-size: 1rem; margin: 0 0 8px; }
+  .skills p { margin: 0; color: var(--muted); }
+
+  .edu h3 { margin: 0; font-size: 1.1rem; }
+  .edu .meta { color: var(--muted); margin: 2px 0 22px; }
+
+  .contact .big { font-size: clamp(1.5rem, 3vw, 2.1rem); letter-spacing: -0.02em; line-height: 1.25; font-weight: 700; margin: 0 0 24px; max-width: 26ch; }
+  .contact ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .contact li { display: grid; grid-template-columns: 6.5em 1fr; gap: 12px; }
+  .contact li span { color: var(--muted); }
+
+  footer { padding: 32px 0 48px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--line); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 40px; padding: 32px 0 64px; }
+    .sec { grid-template-columns: 1fr; gap: 20px; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 16px; }
+    .top nav { display: none; }
+    section { padding: 56px 0; }
+    .feature { padding: 22px 18px; }
+    .facts, .projects, .skills { grid-template-columns: 1fr; }
+    .compare .row { grid-template-columns: 7.5em 1fr auto; gap: 8px; }
+    .panel { padding: 18px 16px; font-size: 0.8rem; }
+    .contact li { grid-template-columns: 1fr; gap: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#">Siddharth Agarwal</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div>
+        <h1>Full-stack engineer, building AI into software people already use.</h1>
+        <p class="lede">Java, TypeScript and Vue.js. Four years shipping a Jira-integrated SaaS product, now working on agentic AI tooling while studying Data Science at TU&nbsp;Darmstadt.</p>
+        <span class="status">Open to Werkstudent roles and internships in Germany</span>
+        <div class="links">
+          <a class="btn primary" href="mailto:siddharth.agarwal@stud.tu-darmstadt.de">Email me</a>
+          <a class="btn" href="https://www.linkedin.com/in/sidag99/" rel="noopener">LinkedIn</a>
+          <a class="btn" href="https://github.com/sidag99" rel="noopener">GitHub</a>
+        </div>
+      </div>
+
+      <figure class="panel" aria-label="Code Mode example: an agent writes a short script instead of pulling whole tables">
+        <p class="ask">Agent is asked: <b>“What happened to order 12345?”</b></p>
+        <pre><span class="line"><span class="k">const</span> o = <span class="k">await</span> tools.orders.get({ id: 12345 })</span>
+<span class="line"><span class="k">const</span> u = <span class="k">await</span> tools.users.get({ id: o.customer_id })</span>
+<span class="line"><span class="k">const</span> s = <span class="k">await</span> tools.shipments.find({ order: o.id })</span>
+<span class="line"><span class="k">return</span> { status: s.status, eta: s.eta, customer: u.name }</span></pre>
+        <div class="result">{ "status": "delayed", "eta": "2026-10-19", … }</div>
+        <div class="compare" aria-hidden="false">
+          <div class="row raw"><span>Raw tool calls</span><div class="bar"><div class="fill"></div></div><span class="num">1.69 MB</span></div>
+          <div class="row cm"><span>Code Mode</span><div class="bar"><div class="fill"></div></div><span class="num">41 B</span></div>
+          <p class="note">Same answer, about 10 tokens instead of 422,500. From our Black Forest Hackathon benchmark.</p>
+        </div>
+      </figure>
+    </div>
+
+    <section id="about">
+      <div class="sec">
+        <h2>About</h2>
+        <div class="body">
+          <p>I like the part of engineering where a product gets noticeably better for the people using it: a page that loads faster, a migration nobody has to think about afterwards, an AI feature that saves someone real work instead of just demoing well.</p>
+          <p>For four years I worked on AIO Tests, a test management app that lives inside Jira. I moved its frontend from Vue&nbsp;2 to Vue&nbsp;3 and TypeScript, built backend services in Java, and shipped generative AI features that helped win new customers.</p>
+          <p>Today I’m doing an MSc in Computer Science with a Data Science focus at TU&nbsp;Darmstadt, and spending my spare time on agentic AI: how agents should call tools safely, cheaply and without drowning in data. I’m looking for a Werkstudent role or internship where I can keep shipping while I study, and I’m happy to talk about full-time roles too.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="work">
+      <div class="sec">
+        <h2>Work</h2>
+        <div class="body">
+          <ol class="timeline" reversed>
+            <li class="role current">
+              <h3>Software Engineer, AIO Tests</h3>
+              <p class="meta">Navarambh Software · India · Jul 2021 – Oct 2025</p>
+              <div class="progress"><span>SDE I</span><span>SDE II</span></div>
+              <p class="ctx">B2B SaaS for test case management, built directly into Atlassian Jira.</p>
+              <ul>
+                <li>Led the move from Vue&nbsp;2 to Vue&nbsp;3 and TypeScript, reworking 100+ components and bringing in Quasar so the frontend could keep evolving.</li>
+                <li>Built 50+ reusable UI components used across the product’s main modules.</li>
+                <li>Took generative AI features on Azure OpenAI from prompt design to production; they became part of how new customers were won.</li>
+                <li>Cut load times on key workflows by up to 40% by merging APIs and rewriting heavy queries with Querydsl.</li>
+                <li>Owned Java services for large PDF exports, data import/export and migrations between product versions.</li>
+                <li>Used the Atlassian APIs so users could create Jira issues and see test data without leaving their workflow.</li>
+              </ul>
+            </li>
+            <li class="role">
+              <h3>SDET Intern, Frugal Testing</h3>
+              <p class="meta">India · Jan 2021 – Jun 2021</p>
+              <ul>
+                <li>Load-tested auction sites and banking portals with JMeter at 1,000+ concurrent users and helped tune them.</li>
+                <li>Wrote end-to-end Selenium suites in Java that widened test coverage.</li>
+                <li>Interviewed 20+ candidates and mentored the next group of interns on test automation.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="sec">
+        <h2>Projects</h2>
+        <div class="body">
+          <article class="feature">
+            <h3>Code Mode: a sandbox for AI agents in AnythingMCP</h3>
+            <p class="meta">Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH</p>
+            <p>AI agents that call business tools directly tend to pull whole tables into their context, which is slow, expensive and often leaks data the agent never needed. We built a sandbox for AnythingMCP, an open-source MCP gateway, that changes the pattern: the agent writes a short JavaScript script, the script runs next to the connectors in an isolated V8 sandbox, and only the final answer goes back to the model.</p>
+            <p>The sandbox calls tools with the user’s own permissions, refuses writes, has no network access or secrets, cannot reach other tenants, and stops runaway scripts.</p>
+            <p><strong>My part:</strong> I broke down the challenge and decided with the team what to build, steered the build (much of the code was written with AI coding agents), and debugged and fixed the issues that came up on the way to a working demo.</p>
+            <div class="facts">
+              <div><strong>1.69 MB → 41 B</strong><span>raw tool output vs. Code Mode answer on one query</span></div>
+              <div><strong>5th of 14</strong><span>final ranking</span></div>
+              <div><strong>3 days</strong><span>16–18 Oct 2026</span></div>
+            </div>
+            <p><a href="https://github.com/Jaiaaryan/captianmuqiMCP" rel="noopener">Team repository on GitHub</a></p>
+          </article>
+
+          <div class="projects">
+            <div>
+              <h3>Gesture-based ATM PIN entry</h3>
+              <p class="meta">Smart India Hackathon 2020 · First place</p>
+              <p>Won NCR Corporation’s problem statement with an ATM PIN entry system controlled by hand gestures.</p>
+            </div>
+            <div>
+              <h3>Networked 3D printer</h3>
+              <p class="meta">2021 · Raspberry Pi, OctoPi</p>
+              <p>Built a working 3D printer and set it up for remote printing over the network.</p>
+            </div>
+            <div>
+              <h3>Delivery bot</h3>
+              <p class="meta">2020 · Arduino, ESP8266, Firebase</p>
+              <p>An autonomous line-following delivery robot, connected to Firebase.</p>
+            </div>
+            <div>
+              <h3>AR Architect</h3>
+              <p class="meta">2019 · Unity, Vuforia, Android</p>
+              <p>An Android app that places 3D floor plans on top of printed markers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="sec">
+        <h2>Skills</h2>
+        <div class="body skills">
+          <div><h3>Frontend</h3><p>Vue.js (2 and 3), TypeScript, JavaScript, Quasar, React, HTML, CSS</p></div>
+          <div><h3>Backend</h3><p>Java, SQL, Querydsl, REST API design, C++</p></div>
+          <div><h3>Applied and agentic AI</h3><p>Azure OpenAI and OpenAI APIs, prompt engineering, MCP, sandboxed tool execution</p></div>
+          <div><h3>Platforms and testing</h3><p>Atlassian Jira APIs, Selenium, JMeter, IntelliJ IDEA, WebStorm, Confluence</p></div>
+          <div><h3>Languages</h3><p>English (C1), German (learning, B1)</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="sec">
+        <h2>Education</h2>
+        <div class="body edu">
+          <h3>MSc Computer Science, Data Science focus</h3>
+          <p class="meta">Technische Universität Darmstadt · 2025 – present</p>
+          <h3>Bachelor of Engineering, Computer Engineering</h3>
+          <p class="meta">Thapar Institute of Engineering &amp; Technology, Punjab · 2017 – 2021</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="sec">
+        <h2>Contact</h2>
+        <div class="body">
+          <p class="big">Hiring a Werkstudent or intern for full-stack or AI work? I’d like to hear about it.</p>
+          <ul>
+            <li><span>Email</span><a href="mailto:siddharth.agarwal@stud.tu-darmstadt.de">siddharth.agarwal@stud.tu-darmstadt.de</a></li>
+            <li><span>LinkedIn</span><a href="https://www.linkedin.com/in/sidag99/" rel="noopener">linkedin.com/in/sidag99</a></li>
+            <li><span>GitHub</span><a href="https://github.com/sidag99" rel="noopener">github.com/sidag99</a></li>
+            <li><span>Based in</span>Darmstadt, Germany</li>
+            <li><span>Open to</span>Werkstudent roles, internships and the right full-time role</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 Siddharth Agarwal</footer>
+</div>
+</body>
+</html>
