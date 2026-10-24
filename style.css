@@ -162,8 +162,6 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .experience { display: grid; grid-template-columns: 1fr 1.7fr; gap: 72px; }
 .role h3 { font-size: 32px; font-weight: 500; letter-spacing: -0.03em; line-height: 1.2; margin: 16px 0; }
 .role p { font-size: 16.5px; margin-bottom: 6px; }
-.role .progress { display: flex; gap: 8px; margin: 14px 0 0; font: 13px var(--mono); }
-.role .progress span { padding: 3px 10px; border-radius: 4px; background: var(--sage); }
 .role .tags { margin-top: 24px; }
 .rows details { border-top: 1px solid var(--line); }
 .rows summary {

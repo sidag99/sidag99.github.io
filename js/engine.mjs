@@ -302,7 +302,7 @@ const answers = [
   },
   {
     keys: /\b(contact|email|hire|hiring|job|role|werkstudent|working student|intern\w*|opportunit\w*|available|reach)\b/i,
-    text: 'He’s looking for a Werkstudent (working student) role or internship in software engineering or AI, and is open to the right full-time role. Email: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. For start dates and hours, please ask him directly.'
+    text: 'He’s looking for a Werkstudent (working student) role or internship in software engineering or AI, and is open to the right full-time role. Email: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. As a Werkstudent he can work up to 20 hours a week during the semester and full-time in semester breaks. For a start date, please ask him directly.'
   },
   {
     keys: /\b(ai|openai|azure|generative|llm|prompt\w*|applied)\b/i,
@@ -326,7 +326,7 @@ const answers = [
   },
   {
     keys: /\b(experience|work|build|built|career|navarambh|aio|jira|about|who|siddharth|test\w*|sdet)\b/i,
-    text: 'Siddharth was a software engineer (SDE I to SDE II) at Navarambh Software from July 2021 to October 2025, working on AIO Tests, a test management app inside Jira. He led the Vue 3 / TypeScript migration, built 50+ reusable components and Java services, sped up key workflows by up to 40%, and shipped AI and Jira integrations. Before that he was an SDET intern at Frugal Testing (Jan–Jun 2021).'
+    text: 'Siddharth worked at Navarambh Software as SDE I and then SDE II from July 2021 to October 2025, working on AIO Tests, a test management app inside Jira. He led the Vue 3 / TypeScript migration, built 50+ reusable components and Java services, sped up key workflows by up to 40%, and shipped AI and Jira integrations. Before that he was an SDET intern at Frugal Testing (Jan–Jun 2021).'
   }
 ];
 
