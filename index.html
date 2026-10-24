@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Siddharth Agarwal · Full-stack engineer</title>
-<meta name="description" content="Full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. MSc Computer Science student at TU Darmstadt, open to Werkstudent roles and internships.">
+<meta name="description" content="Full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. MSc Computer Science student at TU Darmstadt, open to Werkstudent roles and internships. Includes a small in-browser playground.">
 <meta property="og:title" content="Siddharth Agarwal, full-stack engineer">
-<meta property="og:description" content="Four years shipping a Jira-integrated SaaS product. Now building agentic AI tooling and studying Data Science at TU Darmstadt.">
+<meta property="og:description" content="Four years shipping a Jira-integrated SaaS product. Now building applied and agentic AI and studying Data Science at TU Darmstadt.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://sidag99.github.io/">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232E5E4E'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%23F3F4F1' text-anchor='middle'%3ESA%3C/text%3E%3C/svg%3E">
@@ -42,6 +42,7 @@
   }
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
     margin: 0;
     background: var(--paper);
@@ -86,16 +87,19 @@
     font-size: 0.95rem;
   }
   .hero .status::before {
-    content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--forest);
+    content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--forest);
     box-shadow: 0 0 0 4px var(--moss);
   }
   .hero .links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .hero .direct { margin: 18px 0 0; color: var(--muted); font-size: 0.95rem; }
+  .hero .direct a { margin-left: 4px; }
   .btn {
     display: inline-block; padding: 12px 20px; border-radius: 10px; font-weight: 600;
     text-decoration: none; border: 1.5px solid var(--ink); color: var(--ink);
   }
   .btn.primary { background: var(--ink); color: var(--paper); }
   .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .tryit { display: inline-block; margin-top: 14px; font-weight: 600; font-size: 0.95rem; }
 
   /* the one memorable thing: the code-mode panel */
   .panel {
@@ -109,6 +113,7 @@
   .panel .ask b { color: var(--panel-ink); font-weight: 600; }
   .panel pre { margin: 0; white-space: pre-wrap; word-break: break-word; }
   .panel .k { color: #9CC9B4; }
+  .panel .s { color: #E9C46A; }
   .panel .c { color: var(--panel-dim); }
   .panel .result {
     margin-top: 16px; padding: 12px 14px; border-radius: 10px;
@@ -124,14 +129,14 @@
   .compare .note { color: var(--panel-dim); margin-top: 12px; font-size: 0.82rem; }
 
   @media (prefers-reduced-motion: no-preference) {
-    .panel .line { opacity: 0; animation: show 0.01s forwards; }
-    .panel .line:nth-child(1) { animation-delay: 0.25s; }
-    .panel .line:nth-child(2) { animation-delay: 0.55s; }
-    .panel .line:nth-child(3) { animation-delay: 0.85s; }
-    .panel .line:nth-child(4) { animation-delay: 1.15s; }
-    .panel .result { opacity: 0; animation: rise 0.5s 1.6s ease-out forwards; }
-    .compare .raw .fill { transform-origin: left; transform: scaleX(0); animation: grow 0.9s 2.0s cubic-bezier(.2,.7,.2,1) forwards; }
-    .compare .cm .fill { opacity: 0; animation: show 0.01s 2.9s forwards; }
+    .hero .panel .line { opacity: 0; animation: show 0.01s forwards; }
+    .hero .panel .line:nth-child(1) { animation-delay: 0.25s; }
+    .hero .panel .line:nth-child(2) { animation-delay: 0.55s; }
+    .hero .panel .line:nth-child(3) { animation-delay: 0.85s; }
+    .hero .panel .line:nth-child(4) { animation-delay: 1.15s; }
+    .hero .panel .result { opacity: 0; animation: rise 0.5s 1.6s ease-out forwards; }
+    .hero .compare .raw .fill { transform-origin: left; transform: scaleX(0); animation: grow 0.9s 2.0s cubic-bezier(.2,.7,.2,1) forwards; }
+    .hero .compare .cm .fill { opacity: 0; animation: show 0.01s 2.9s forwards; }
     @keyframes show { to { opacity: 1; } }
     @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
     @keyframes grow { to { transform: scaleX(1); } }
@@ -144,6 +149,7 @@
     font-size: 1.5rem; letter-spacing: -0.02em; margin: 0; line-height: 1.2; font-weight: 700;
   }
   .sec .body { max-width: var(--measure); }
+  .sec .body.wide { max-width: none; }
   .sec .body > p:first-child { margin-top: 0; }
 
   /* experience timeline: this content really is a sequence */
@@ -165,24 +171,102 @@
   .progress { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; font-size: 0.9rem; }
   .progress span { padding: 3px 10px; border-radius: 6px; background: var(--moss); }
 
-  /* featured project */
+  /* featured project, written as a short case study */
   .feature { background: var(--moss); border-radius: 18px; padding: 32px; margin-bottom: 40px; }
   .feature h3 { font-size: 1.6rem; letter-spacing: -0.02em; margin: 0 0 6px; line-height: 1.15; }
   .feature .meta { color: var(--muted); margin: 0 0 18px; }
   .feature p { max-width: var(--measure); }
+  .case { display: grid; gap: 16px; margin: 0 0 8px; }
+  .case h4 { margin: 0 0 2px; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--forest); }
+  .case p { margin: 0; }
   .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 24px 0 8px; }
   .facts div { border-top: 2px solid var(--forest); padding-top: 10px; }
   .facts strong { display: block; font-size: 1.35rem; letter-spacing: -0.02em; }
   .facts span { color: var(--muted); font-size: 0.93rem; }
+  .feature .more { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-bottom: 0; }
 
   .projects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 40px; }
   .projects h3 { margin: 0 0 4px; font-size: 1.1rem; }
   .projects .meta { color: var(--muted); font-size: 0.93rem; margin: 0 0 6px; }
   .projects p { margin: 0; }
 
+  /* ---------- playground ---------- */
+  .intro { max-width: var(--measure); margin: 0; }
+  .lab { border: 1px solid var(--line); border-radius: 18px; padding: 28px; margin-top: 28px; }
+  .lab h3 { margin: 0 0 6px; font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.2; }
+  .lab .what { margin: 0; color: var(--muted); max-width: var(--measure); }
+  .lab-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 32px; align-items: start; margin-top: 24px; }
+  .lab fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .lab legend, .field label { display: block; padding: 0; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .chip span {
+    display: inline-block; padding: 7px 13px; border: 1.5px solid var(--line); border-radius: 999px;
+    font-size: 0.93rem; cursor: pointer; line-height: 1.35;
+  }
+  .chip span:hover { border-color: var(--ink); }
+  .chip input:checked + span { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .chip input:focus-visible + span { outline: 3px solid var(--signal); outline-offset: 2px; }
+  .field { margin-top: 22px; }
+  .field label { display: flex; justify-content: space-between; gap: 12px; }
+  .field output { font-variant-numeric: tabular-nums; color: var(--forest); }
+  .field input[type="range"] { width: 100%; accent-color: var(--forest); }
+  .explain { margin-top: 18px; font-size: 0.97rem; color: var(--muted); }
+  .explain p { margin: 0 0 10px; }
+  .explain strong { color: var(--ink); }
+  .lab details { margin-top: 14px; font-size: 0.95rem; }
+  .lab summary { cursor: pointer; color: var(--forest); font-weight: 600; }
+  .lab details p { color: var(--muted); margin: 10px 0 0; }
+  .peek {
+    margin: 10px 0 0; max-height: 180px; overflow: auto; padding: 12px; border-radius: 10px;
+    background: var(--panel); color: var(--panel-dim);
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.75rem; line-height: 1.5;
+    white-space: pre-wrap; word-break: break-all;
+  }
+  #cm-result { white-space: pre-wrap; word-break: break-word; }
+  .btn.small { padding: 8px 14px; font-size: 0.93rem; cursor: pointer; background: transparent; font-family: inherit; }
+  .btn.small.primary { background: var(--ink); }
+  .buildnote { margin: 24px 0 0; color: var(--muted); font-size: 0.93rem; }
+
+  /* connect four */
+  .c4 {
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+    max-width: 440px; padding: 10px; border-radius: 16px; background: var(--panel);
+  }
+  .c4 button {
+    appearance: none; border: 0; padding: 0; margin: 0; background: transparent; font: inherit; color: inherit;
+    display: flex; flex-direction: column-reverse; gap: 6px; border-radius: 10px; cursor: pointer;
+  }
+  .c4 button[aria-disabled="true"] { cursor: default; }
+  .c4 button:not([aria-disabled="true"]):hover { background: rgba(255, 255, 255, 0.07); }
+  .c4 .slot { display: block; aspect-ratio: 1; border-radius: 50%; background: #2C3A35; }
+  .c4 .p1 { background: #E8B931; }
+  .c4 .p2 { background: #6FB596; }
+  .c4 .last { box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.22); }
+  .c4 .win { box-shadow: inset 0 0 0 4px #F3F4F1; }
+  @media (prefers-reduced-motion: no-preference) {
+    .c4 .drop { animation: drop 0.3s cubic-bezier(.3,.7,.4,1); }
+    @keyframes drop { from { transform: translateY(-140%); opacity: 0.4; } }
+  }
+  .scores {
+    display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px;
+    max-width: 440px; padding: 0 10px; margin-top: 8px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 0.72rem; text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .scores span { padding: 4px 0; border-radius: 6px; background: var(--moss); color: var(--muted); overflow: hidden; }
+  .scores span.best { background: var(--forest); color: var(--paper); font-weight: 500; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 10px 0 0; font-size: 0.88rem; color: var(--muted); }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .c4-status { margin: 0 0 6px; font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; min-height: 1.6em; }
+  .c4-think { margin: 0 0 18px; color: var(--muted); min-height: 3.2em; }
+  .c4-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+
   .skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 40px; }
   .skills h3 { font-size: 1rem; margin: 0 0 8px; }
   .skills p { margin: 0; color: var(--muted); }
+  .skills p.proof { margin-top: 6px; font-size: 0.93rem; }
 
   .edu h3 { margin: 0; font-size: 1.1rem; }
   .edu .meta { color: var(--muted); margin: 2px 0 22px; }
@@ -198,15 +282,20 @@
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; gap: 40px; padding: 32px 0 64px; }
     .sec { grid-template-columns: 1fr; gap: 20px; }
+    .lab-grid { grid-template-columns: 1fr; gap: 24px; }
   }
   @media (max-width: 640px) {
     .wrap { padding: 0 16px; }
     .top nav { display: none; }
     section { padding: 56px 0; }
     .feature { padding: 22px 18px; }
+    .lab { padding: 20px 16px; }
     .facts, .projects, .skills { grid-template-columns: 1fr; }
     .compare .row { grid-template-columns: 7.5em 1fr auto; gap: 8px; }
     .panel { padding: 18px 16px; font-size: 0.8rem; }
+    .c4, .scores { gap: 4px; }
+    .c4 button { gap: 4px; }
+    .scores { font-size: 0.62rem; }
     .contact li { grid-template-columns: 1fr; gap: 0; }
   }
 </style>
@@ -218,6 +307,7 @@
     <nav aria-label="Sections">
       <a href="#work">Work</a>
       <a href="#projects">Projects</a>
+      <a href="#playground">Playground</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -227,28 +317,35 @@
     <div class="hero">
       <div>
         <h1>Full-stack engineer, building AI into software people already use.</h1>
-        <p class="lede">Java, TypeScript and Vue.js. Four years shipping a Jira-integrated SaaS product, now working on agentic AI tooling while studying Data Science at TU&nbsp;Darmstadt.</p>
+        <p class="lede">Java, TypeScript and Vue.js. Four years shipping a Jira-integrated SaaS product, now working on applied and agentic AI while studying Data Science at TU&nbsp;Darmstadt.</p>
         <span class="status">Open to Werkstudent roles and internships in Germany</span>
         <div class="links">
-          <a class="btn primary" href="mailto:siddharth.agarwal@stud.tu-darmstadt.de">Email me</a>
-          <a class="btn" href="https://www.linkedin.com/in/sidag99/" rel="noopener">LinkedIn</a>
-          <a class="btn" href="https://github.com/sidag99" rel="noopener">GitHub</a>
+          <a class="btn primary" href="#work">Explore my work</a>
+          <a class="btn" href="#playground">Enter the playground</a>
         </div>
+        <p class="direct">Or get in touch:
+          <a href="mailto:siddharth.agarwal@stud.tu-darmstadt.de">Email</a> ·
+          <a href="https://www.linkedin.com/in/sidag99/" rel="noopener">LinkedIn</a> ·
+          <a href="https://github.com/sidag99" rel="noopener">GitHub</a>
+        </p>
       </div>
 
-      <figure class="panel" aria-label="Code Mode example: an agent writes a short script instead of pulling whole tables">
-        <p class="ask">Agent is asked: <b>“What happened to order 12345?”</b></p>
-        <pre><span class="line"><span class="k">const</span> o = <span class="k">await</span> tools.orders.get({ id: 12345 })</span>
+      <div>
+        <figure class="panel" aria-label="Code Mode example: an agent writes a short script instead of pulling whole tables">
+          <p class="ask">Agent is asked: <b>“What happened to order 12345?”</b></p>
+          <pre><span class="line"><span class="k">const</span> o = <span class="k">await</span> tools.orders.get({ id: 12345 })</span>
 <span class="line"><span class="k">const</span> u = <span class="k">await</span> tools.users.get({ id: o.customer_id })</span>
 <span class="line"><span class="k">const</span> s = <span class="k">await</span> tools.shipments.find({ order: o.id })</span>
 <span class="line"><span class="k">return</span> { status: s.status, eta: s.eta, customer: u.name }</span></pre>
-        <div class="result">{ "status": "delayed", "eta": "2026-10-19", … }</div>
-        <div class="compare" aria-hidden="false">
-          <div class="row raw"><span>Raw tool calls</span><div class="bar"><div class="fill"></div></div><span class="num">1.69 MB</span></div>
-          <div class="row cm"><span>Code Mode</span><div class="bar"><div class="fill"></div></div><span class="num">41 B</span></div>
-          <p class="note">Same answer, about 10 tokens instead of 422,500. From our Black Forest Hackathon benchmark.</p>
-        </div>
-      </figure>
+          <div class="result">{ "status": "delayed", "eta": "2026-10-19", … }</div>
+          <div class="compare">
+            <div class="row raw"><span>Raw tool calls</span><div class="bar"><div class="fill"></div></div><span class="num">1.69 MB</span></div>
+            <div class="row cm"><span>Code Mode</span><div class="bar"><div class="fill"></div></div><span class="num">41 B</span></div>
+            <p class="note">Same answer, about 10 tokens instead of 422,500. From our Black Forest Hackathon benchmark.</p>
+          </div>
+        </figure>
+        <a class="tryit" href="#lab-codemode">Run it yourself in the playground →</a>
+      </div>
     </div>
 
     <section id="about">
@@ -257,7 +354,7 @@
         <div class="body">
           <p>I like the part of engineering where a product gets noticeably better for the people using it: a page that loads faster, a migration nobody has to think about afterwards, an AI feature that saves someone real work instead of just demoing well.</p>
           <p>For four years I worked on AIO Tests, a test management app that lives inside Jira. I moved its frontend from Vue&nbsp;2 to Vue&nbsp;3 and TypeScript, built backend services in Java, and shipped generative AI features that helped win new customers.</p>
-          <p>Today I’m doing an MSc in Computer Science with a Data Science focus at TU&nbsp;Darmstadt, and spending my spare time on agentic AI: how agents should call tools safely, cheaply and without drowning in data. I’m looking for a Werkstudent role or internship where I can keep shipping while I study, and I’m happy to talk about full-time roles too.</p>
+          <p>Today I’m doing an MSc in Computer Science with a Data Science focus at TU&nbsp;Darmstadt. Outside class I work on applied and agentic AI: putting models to work inside real products, and letting agents call tools safely, cheaply and without drowning in data. I’m looking for a Werkstudent role or internship where I can keep shipping while I study, and I’m happy to talk about full-time roles too.</p>
         </div>
       </div>
     </section>
@@ -299,23 +396,41 @@
       <div class="sec">
         <h2>Projects</h2>
         <div class="body">
-          <article class="feature">
+          <article class="feature" id="code-mode">
             <h3>Code Mode: a sandbox for AI agents in AnythingMCP</h3>
             <p class="meta">Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH</p>
-            <p>AI agents that call business tools directly tend to pull whole tables into their context, which is slow, expensive and often leaks data the agent never needed. We built a sandbox for AnythingMCP, an open-source MCP gateway, that changes the pattern: the agent writes a short JavaScript script, the script runs next to the connectors in an isolated V8 sandbox, and only the final answer goes back to the model.</p>
-            <p>The sandbox calls tools with the user’s own permissions, refuses writes, has no network access or secrets, cannot reach other tenants, and stops runaway scripts.</p>
-            <p><strong>My part:</strong> I broke down the challenge and decided with the team what to build, steered the build (much of the code was written with AI coding agents), and debugged and fixed the issues that came up on the way to a working demo.</p>
+            <div class="case">
+              <div>
+                <h4>The problem</h4>
+                <p>AI agents that call business tools directly tend to pull whole tables into their context. That is slow, expensive, and often leaks data the agent never needed.</p>
+              </div>
+              <div>
+                <h4>What we built</h4>
+                <p>A sandbox for AnythingMCP, an open-source MCP gateway. The agent writes a short JavaScript script, the script runs next to the connectors in an isolated V8 sandbox, and only the final answer goes back to the model.</p>
+              </div>
+              <div>
+                <h4>The tradeoff</h4>
+                <p>Keeping data out of the model means running code the model wrote. So the sandbox gets the user’s own permissions and nothing more: it refuses writes, has no network access or secrets, cannot reach other tenants, and stops runaway scripts.</p>
+              </div>
+              <div>
+                <h4>My part</h4>
+                <p>I broke down the challenge and decided with the team what to build, steered the build (much of the code was written with AI coding agents), and debugged and fixed the issues that came up on the way to a working demo.</p>
+              </div>
+            </div>
             <div class="facts">
               <div><strong>1.69 MB → 41 B</strong><span>raw tool output vs. Code Mode answer on one query</span></div>
               <div><strong>5th of 14</strong><span>final ranking</span></div>
               <div><strong>3 days</strong><span>16–18 Oct 2026</span></div>
             </div>
-            <p><a href="https://github.com/Jaiaaryan/captianmuqiMCP" rel="noopener">Team repository on GitHub</a></p>
+            <p class="more">
+              <a href="https://github.com/Jaiaaryan/captianmuqiMCP" rel="noopener">Team repository on GitHub</a>
+              <a href="#lab-codemode">Try the idea in the playground</a>
+            </p>
           </article>
 
           <div class="projects">
             <div>
-              <h3>Gesture-based ATM PIN entry</h3>
+              <h3>Winning ATM authentication prototype</h3>
               <p class="meta">Smart India Hackathon 2020 · First place</p>
               <p>Won NCR Corporation’s problem statement with an ATM PIN entry system controlled by hand gestures.</p>
             </div>
@@ -339,15 +454,118 @@
       </div>
     </section>
 
+    <section id="playground">
+      <div class="sec">
+        <h2>Playground</h2>
+        <div class="body wide">
+          <p class="intro">Two small experiments you can poke at. Both run entirely in your browser: no server, no sign-up, nothing sent anywhere.</p>
+
+          <article class="lab" id="lab-codemode">
+            <h3>Code Mode, on toy data</h3>
+            <p class="what">The idea behind my hackathon project, small enough to run here. Pick a question and grow the database: the raw tool output grows with it, the Code Mode answer stays tiny.</p>
+            <div class="lab-grid">
+              <div>
+                <fieldset>
+                  <legend>Question for the agent</legend>
+                  <div class="chips" id="cm-questions"></div>
+                </fieldset>
+                <div class="field">
+                  <label for="cm-size"><span>Orders in the database</span><output id="cm-size-out" for="cm-size">5,000</output></label>
+                  <input type="range" id="cm-size" min="500" max="20000" step="500" value="5000">
+                </div>
+                <div class="explain">
+                  <p><strong>Raw tool calls:</strong> the agent fetches every table it needs and all of it lands in the model’s context, where the model has to dig out the answer.</p>
+                  <p><strong>Code Mode:</strong> the agent writes the script shown here, it runs next to the data, and only its return value goes back to the model.</p>
+                </div>
+                <details>
+                  <summary>Peek at the raw payload</summary>
+                  <pre class="peek" id="cm-peek"></pre>
+                </details>
+              </div>
+              <figure class="panel" aria-label="Script the agent writes, its result, and the size of each approach">
+                <p class="ask" id="cm-ask">Script the agent writes</p>
+                <pre id="cm-code"></pre>
+                <div class="result" id="cm-result" aria-live="polite"></div>
+                <div class="compare">
+                  <div class="row raw"><span>Raw tool calls</span><div class="bar"><div class="fill"></div></div><span class="num" id="cm-raw">–</span></div>
+                  <div class="row cm"><span>Code Mode</span><div class="bar"><div class="fill" id="cm-fill"></div></div><span class="num" id="cm-cm">–</span></div>
+                  <p class="note" id="cm-note">Generated in your browser. Tokens estimated at 4 bytes each.</p>
+                </div>
+              </figure>
+            </div>
+          </article>
+
+          <article class="lab" id="lab-connect4">
+            <h3>Connect Four against a bot that shows its work</h3>
+            <p class="what">Get four in a row before the bot does. After each move it shows how it scored every column, so you can see why it played where it did.</p>
+            <div class="lab-grid">
+              <div>
+                <div class="c4" id="c4" role="group" aria-label="Connect Four board, columns 1 to 7"></div>
+                <div class="scores" id="c4-scores" aria-hidden="true"></div>
+                <p class="legend"><span><i style="background:#E8B931"></i>You</span><span><i style="background:#6FB596"></i>Bot</span><span>Numbers: the bot’s score for each column, higher is better for it</span></p>
+              </div>
+              <div>
+                <p class="c4-status" id="c4-status" aria-live="polite">Your move.</p>
+                <p class="c4-think" id="c4-think" aria-live="polite">Click a column, or use Tab and the arrow keys and press Enter.</p>
+                <fieldset>
+                  <legend>Bot strength</legend>
+                  <div class="chips">
+                    <label class="chip"><input type="radio" name="c4-depth" value="1"><span>Easy · 1 move ahead</span></label>
+                    <label class="chip"><input type="radio" name="c4-depth" value="3" checked><span>Medium · 3</span></label>
+                    <label class="chip"><input type="radio" name="c4-depth" value="6"><span>Hard · 6</span></label>
+                  </div>
+                </fieldset>
+                <div class="c4-actions">
+                  <button class="btn small primary" type="button" id="c4-new">New game</button>
+                  <button class="btn small" type="button" id="c4-botfirst">New game, bot starts</button>
+                </div>
+                <details>
+                  <summary>How the bot decides</summary>
+                  <p>It uses minimax search with alpha-beta pruning. For each column it plays out every sequence of moves up to its search depth, assuming you always answer with your best reply, then scores the positions where it stops.</p>
+                  <p>A position earns points for open lines of two or three bot discs and for discs in the centre column, and loses the same for yours. A forced win or loss inside the search depth outranks any score, which is what “win” and “loss” under the board mean.</p>
+                </details>
+              </div>
+            </div>
+          </article>
+
+          <p class="buildnote">Both experiments are plain JavaScript with no libraries, written with help from AI coding assistants. <a href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Source on GitHub</a>.</p>
+        </div>
+      </div>
+    </section>
+
     <section id="skills">
       <div class="sec">
         <h2>Skills</h2>
         <div class="body skills">
-          <div><h3>Frontend</h3><p>Vue.js (2 and 3), TypeScript, JavaScript, Quasar, React, HTML, CSS</p></div>
-          <div><h3>Backend</h3><p>Java, SQL, Querydsl, REST API design, C++</p></div>
-          <div><h3>Applied and agentic AI</h3><p>Azure OpenAI and OpenAI APIs, prompt engineering, MCP, sandboxed tool execution</p></div>
-          <div><h3>Platforms and testing</h3><p>Atlassian Jira APIs, Selenium, JMeter, IntelliJ IDEA, WebStorm, Confluence</p></div>
-          <div><h3>Languages</h3><p>English (C1), German (learning, B1)</p></div>
+          <div>
+            <h3>Frontend</h3>
+            <p>Vue.js (2 and 3), TypeScript, JavaScript, Quasar, React, HTML, CSS</p>
+            <p class="proof">Evidence: <a href="#work">the Vue&nbsp;3 migration at AIO Tests</a></p>
+          </div>
+          <div>
+            <h3>Backend</h3>
+            <p>Java, SQL, Querydsl, REST API design, C++</p>
+            <p class="proof">Evidence: <a href="#work">40% faster workflows from query rewrites</a></p>
+          </div>
+          <div>
+            <h3>Applied and agentic AI</h3>
+            <p>Azure OpenAI and OpenAI APIs, prompt engineering, MCP, sandboxed tool execution</p>
+            <p class="proof">Evidence: <a href="#code-mode">Code Mode case study</a> · <a href="#lab-codemode">run it on toy data</a></p>
+          </div>
+          <div>
+            <h3>Algorithms</h3>
+            <p>Search, game trees, data structures</p>
+            <p class="proof">Evidence: <a href="#lab-connect4">play the Connect Four bot</a></p>
+          </div>
+          <div>
+            <h3>Platforms and testing</h3>
+            <p>Atlassian Jira APIs, Selenium, JMeter, IntelliJ IDEA, WebStorm, Confluence</p>
+            <p class="proof">Evidence: <a href="#work">Jira integration and SDET internship</a></p>
+          </div>
+          <div>
+            <h3>Languages</h3>
+            <p>English (C1), German (learning, B1)</p>
+          </div>
         </div>
       </div>
     </section>
@@ -381,7 +599,320 @@
     </section>
   </main>
 
-  <footer>© 2026 Siddharth Agarwal</footer>
+  <footer>© 2026 Siddharth Agarwal · A static page on GitHub Pages, with no cookies and no analytics.</footer>
 </div>
+
+<script>
+/* ---------- Code Mode on toy data ---------- */
+(() => {
+  const QUESTIONS = [
+    {
+      label: "What happened to order 12345?",
+      raw: ["orders", "users", "shipments"],
+      code:
+`const o = await tools.orders.get({ id: 12345 })
+const u = await tools.users.get({ id: o.customer_id })
+const s = await tools.shipments.find({ order: o.id })
+return { status: s.status, eta: s.eta, customer: u.name }`
+    },
+    {
+      label: "How many shipments are delayed?",
+      raw: ["shipments"],
+      code:
+`const all = await tools.shipments.list()
+const late = all.filter(s => s.status === "delayed")
+return { delayed: late.length, of: all.length }`
+    },
+    {
+      label: "Who are our top 3 customers?",
+      raw: ["orders", "users"],
+      code:
+`const orders = await tools.orders.list()
+const spend = {}
+for (const o of orders) spend[o.customer_id] = (spend[o.customer_id] ?? 0) + o.total_eur
+const top = Object.entries(spend).sort((a, b) => b[1] - a[1]).slice(0, 3)
+return Promise.all(top.map(async ([id, eur]) =>
+  ({ name: (await tools.users.get({ id: +id })).name, eur: Math.round(eur) })))`
+    }
+  ];
+
+  const FIRST = ["Anna", "Ben", "Clara", "David", "Elif", "Felix", "Greta", "Hannah", "Ivan", "Jonas", "Lea", "Mia", "Noah", "Omar", "Paula", "Sofia", "Tim", "Yusuf"];
+  const LAST = ["Schmidt", "Weber", "Fischer", "Wagner", "Becker", "Hoffmann", "Koch", "Richter", "Klein", "Wolf", "Neumann", "Braun"];
+  const CITIES = ["Darmstadt", "Freiburg", "Frankfurt", "Mannheim", "Karlsruhe", "Stuttgart", "Mainz"];
+  const CARRIERS = ["DHL", "DPD", "Hermes", "GLS", "UPS"];
+  const PRODUCTS = [["KB-201", "Mechanical keyboard", 89.9], ["MS-110", "Wireless mouse", 34.5], ["MN-27Q", "27-inch monitor", 279], ["HB-4P", "USB-C hub", 42], ["HP-300", "Headset", 64.99], ["CM-HD", "Webcam", 59], ["LS-AL", "Laptop stand", 39.9], ["CB-2M", "USB-C cable", 12.5]];
+
+  // small seeded PRNG so the same size always gives the same data
+  function rng(seed) {
+    return () => {
+      seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+
+  function makeData(n) {
+    const rand = rng(7);
+    const pick = a => a[Math.floor(rand() * a.length)];
+    const day = d => new Date(Date.UTC(2026, 8, 1) + d * 864e5).toISOString().slice(0, 10);
+    const users = [];
+    for (let i = 0; i < Math.max(50, Math.round(n / 5)); i++) {
+      const f = pick(FIRST), l = pick(LAST);
+      users.push({ id: 1000 + i, name: `${f} ${l}`, email: `${f}.${l}.${i}@example.com`.toLowerCase(), city: pick(CITIES), signed_up: day(-Math.floor(rand() * 900)), newsletter: rand() < 0.4 });
+    }
+    const orders = [], shipments = [];
+    const first = 12345 - Math.floor(n / 2);
+    for (let i = 0; i < n; i++) {
+      const id = first + i, created = Math.floor(rand() * 50);
+      const items = Array.from({ length: 1 + Math.floor(rand() * 3) }, () => {
+        const [sku, name, unit_eur] = pick(PRODUCTS);
+        return { sku, name, qty: 1 + Math.floor(rand() * 3), unit_eur };
+      });
+      const customer = pick(users);
+      orders.push({ id, customer_id: customer.id, created_at: day(created), payment: "paid", items, total_eur: Math.round(items.reduce((s, x) => s + x.qty * x.unit_eur, 0) * 100) / 100, ship_to: customer.city });
+      const r = rand();
+      const status = id === 12345 ? "delayed" : r < 0.62 ? "delivered" : r < 0.85 ? "in_transit" : r < 0.93 ? "delayed" : "label_created";
+      shipments.push({ id: `SHP-${id}`, order_id: id, carrier: pick(CARRIERS), status, eta: day(created + 3 + Math.floor(rand() * 6)), events: [{ at: day(created), event: "label_created" }, { at: day(created + 1), event: "picked_up" }] });
+    }
+    return { users, orders, shipments };
+  }
+
+  function makeTools(d) {
+    const orderById = new Map(d.orders.map(o => [o.id, o]));
+    const userById = new Map(d.users.map(u => [u.id, u]));
+    const shipByOrder = new Map(d.shipments.map(s => [s.order_id, s]));
+    return {
+      orders: { get: async ({ id }) => orderById.get(id), list: async () => d.orders },
+      users: { get: async ({ id }) => userById.get(id), list: async () => d.users },
+      shipments: { find: async ({ order }) => shipByOrder.get(order), list: async () => d.shipments }
+    };
+  }
+
+  const esc = s => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  const highlight = src => esc(src)
+    .replace(/"[^"]*"/g, m => `<span class="s">${m}</span>`)
+    .replace(/\b(const|await|async|return|for|of)\b/g, '<span class="k">$1</span>');
+  const enc = new TextEncoder();
+  const bytes = s => enc.encode(s).length;
+  const fmt = b => b < 1000 ? `${b} B` : b < 1e6 ? `${(b / 1000).toFixed(1)} KB` : `${(b / 1e6).toFixed(2)} MB`;
+  const num = x => Math.round(x).toLocaleString("en");
+
+  const $ = id => document.getElementById(id);
+  const size = $("cm-size");
+  let current = 0, cache = { n: 0 }, run = 0;
+
+  $("cm-questions").innerHTML = QUESTIONS.map((q, i) =>
+    `<label class="chip"><input type="radio" name="cm-q" value="${i}"${i === 0 ? " checked" : ""}><span>${esc(q.label)}</span></label>`).join("");
+
+  async function update() {
+    const n = +size.value, q = QUESTIONS[current], mine = ++run;
+    $("cm-size-out").textContent = num(n);
+    if (cache.n !== n) cache = { n, data: makeData(n), json: {} };
+    const json = t => cache.json[t] ??= JSON.stringify(cache.data[t]);
+
+    const result = await new Function("tools", `return (async () => {\n${q.code}\n})()`)(makeTools(cache.data));
+    if (mine !== run) return;
+    const rawBytes = q.raw.reduce((s, t) => s + bytes(json(t)), 0);
+    const cmBytes = bytes(JSON.stringify(result));
+
+    $("cm-ask").innerHTML = `Agent is asked: <b>“${esc(q.label)}”</b>`;
+    $("cm-code").innerHTML = highlight(q.code);
+    $("cm-result").textContent = JSON.stringify(result, null, 1).replace(/\n\s*/g, " ");
+    $("cm-raw").textContent = fmt(rawBytes);
+    $("cm-cm").textContent = fmt(cmBytes);
+    $("cm-fill").style.width = `${Math.max(cmBytes / rawBytes * 100, 0.5)}%`;
+    $("cm-note").textContent = `About ${num(cmBytes / 4)} tokens instead of ${num(rawBytes / 4)}, ${num(rawBytes / cmBytes)}× less. Raw means the full ${new Intl.ListFormat("en").format(q.raw)} table${q.raw.length > 1 ? "s" : ""}. Data generated in your browser; tokens estimated at 4 bytes each.`;
+    $("cm-peek").textContent = json(q.raw[0]).slice(0, 700) + " …";
+  }
+
+  $("cm-questions").addEventListener("change", e => { current = +e.target.value; update(); });
+  size.addEventListener("input", update);
+  update();
+})();
+
+/* ---------- Connect Four with an inspectable minimax bot ---------- */
+(() => {
+  const COLS = 7, ROWS = 6, HUMAN = 1, BOT = 2, WIN = 1e6;
+  const ORDER = [3, 2, 4, 1, 5, 0, 6];            // centre first: better pruning, better tie-breaks
+  const DIRS = [[1, 0], [0, 1], [1, 1], [1, -1]];
+  const WINDOWS = [];                              // every line of four cells on the board
+  for (let c = 0; c < COLS; c++)
+    for (let r = 0; r < ROWS; r++)
+      for (const [dc, dr] of DIRS) {
+        const ec = c + 3 * dc, er = r + 3 * dr;
+        if (ec >= 0 && ec < COLS && er >= 0 && er < ROWS) WINDOWS.push([0, 1, 2, 3].map(i => [c + i * dc, r + i * dr]));
+      }
+
+  // board[c] is a stack of discs, bottom first
+  let board, turn, over, depth = 3, last = null, scores = Array(COLS).fill(null), best = -1;
+
+  function winLine(b, c) {
+    const r = b[c].length - 1, p = b[c][r];
+    for (const [dc, dr] of DIRS) {
+      const line = [[c, r]];
+      for (const s of [1, -1]) {
+        let cc = c + dc * s, rr = r + dr * s;
+        while (cc >= 0 && cc < COLS && rr >= 0 && rr < ROWS && b[cc][rr] === p) { line.push([cc, rr]); cc += dc * s; rr += dr * s; }
+      }
+      if (line.length >= 4) return line;
+    }
+    return null;
+  }
+
+  // static score from the bot's point of view
+  function evaluate(b) {
+    let s = 0;
+    for (const v of b[3]) s += v === BOT ? 3 : -3;
+    for (const w of WINDOWS) {
+      let mine = 0, theirs = 0;
+      for (const [c, r] of w) { const v = b[c][r]; if (v === BOT) mine++; else if (v === HUMAN) theirs++; }
+      if (mine && theirs) continue;
+      if (mine === 3) s += 5; else if (mine === 2) s += 2;
+      else if (theirs === 3) s -= 5; else if (theirs === 2) s -= 2;
+    }
+    return s;
+  }
+
+  let nodes = 0;
+  function negamax(b, d, alpha, beta, player) {
+    nodes++;
+    if (d === 0) return player === BOT ? evaluate(b) : -evaluate(b);
+    let moved = false;
+    for (const c of ORDER) {
+      if (b[c].length >= ROWS) continue;
+      moved = true;
+      b[c].push(player);
+      const sc = winLine(b, c) ? WIN + d : -negamax(b, d - 1, -beta, -alpha, 3 - player);
+      b[c].pop();
+      if (sc > alpha) alpha = sc;
+      if (alpha >= beta) break;
+    }
+    return moved ? alpha : 0;
+  }
+
+  // score every root column with a full window, so the numbers shown are exact
+  function think(b, d) {
+    nodes = 0;
+    const t0 = performance.now(), out = Array(COLS).fill(null);
+    for (let c = 0; c < COLS; c++) {
+      if (b[c].length >= ROWS) continue;
+      b[c].push(BOT);
+      out[c] = winLine(b, c) ? WIN + d : -negamax(b, d - 1, -Infinity, Infinity, HUMAN);
+      b[c].pop();
+    }
+    let pick = -1;
+    for (const c of ORDER) if (out[c] !== null && (pick < 0 || out[c] > out[pick])) pick = c;
+    return { scores: out, best: pick, nodes, ms: performance.now() - t0 };
+  }
+
+  const label = s => s === null ? "–" : s >= WIN / 2 ? "win" : s <= -WIN / 2 ? "loss" : String(s);
+
+  function explain(b, res, d) {
+    const c = res.best, s = res.scores[c];
+    b[c].push(HUMAN);
+    const blocks = !!winLine(b, c);
+    b[c].pop();
+    let why;
+    if (s === WIN + d) why = `Column ${c + 1} wins on the spot.`;
+    else if (s >= WIN / 2) why = `It found a forced win that starts in column ${c + 1}.`;
+    else if (blocks) why = `It played column ${c + 1} to block your four in a row.`;
+    else if (s <= -WIN / 2) why = `Every column loses if you play perfectly, so it chose column ${c + 1}, which holds out longest.`;
+    else why = `Column ${c + 1} scored highest (${s}) looking ${d} move${d > 1 ? "s" : ""} ahead.`;
+    return `${why} It checked ${res.nodes.toLocaleString("en")} positions in ${Math.max(1, Math.round(res.ms))} ms.`;
+  }
+
+  const el = document.getElementById("c4");
+  const scoreEl = document.getElementById("c4-scores");
+  const status = document.getElementById("c4-status");
+  const thinkEl = document.getElementById("c4-think");
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  el.innerHTML = Array.from({ length: COLS }, (_, c) =>
+    `<button type="button" data-col="${c}">${"<span class=\"slot\"></span>".repeat(ROWS)}</button>`).join("");
+  scoreEl.innerHTML = "<span></span>".repeat(COLS);
+  const cols = [...el.children];
+
+  function render(win) {
+    const winSet = new Set((win || []).map(([c, r]) => `${c},${r}`));
+    cols.forEach((btn, c) => {
+      [...btn.children].forEach((slot, r) => {
+        const v = board[c][r];
+        let cls = "slot";
+        if (v) cls += v === HUMAN ? " p1" : " p2";
+        if (last && last[0] === c && last[1] === r) cls += winSet.size ? "" : " last drop";
+        if (winSet.has(`${c},${r}`)) cls += " win";
+        slot.className = cls;
+      });
+      const left = ROWS - board[c].length;
+      btn.setAttribute("aria-disabled", String(over || turn !== HUMAN || left === 0));
+      btn.setAttribute("aria-label", `Column ${c + 1}, ${left ? `${left} space${left > 1 ? "s" : ""} left` : "full"}`);
+    });
+    [...scoreEl.children].forEach((s, c) => {
+      s.textContent = label(scores[c]);
+      s.className = c === best ? "best" : "";
+    });
+  }
+
+  function finish(c, who) {
+    const line = winLine(board, c);
+    if (line) { over = true; status.textContent = who === HUMAN ? "You win. Four in a row!" : "The bot wins."; render(line); return true; }
+    if (board.every(col => col.length >= ROWS)) { over = true; status.textContent = "Draw: the board is full."; render(); return true; }
+    return false;
+  }
+
+  function play(c, who) {
+    board[c].push(who);
+    last = [c, board[c].length - 1];
+  }
+
+  function botMove() {
+    const res = think(board, depth);
+    const why = explain(board, res, depth);
+    scores = res.scores; best = res.best;
+    play(res.best, BOT);
+    thinkEl.textContent = why;
+    if (finish(res.best, BOT)) return;
+    turn = HUMAN;
+    status.textContent = "Your move.";
+    render();
+  }
+
+  function humanMove(c) {
+    if (over || turn !== HUMAN || board[c].length >= ROWS) return;
+    play(c, HUMAN);
+    if (finish(c, HUMAN)) { thinkEl.textContent = "Start a new game to play again."; return; }
+    turn = BOT;
+    status.textContent = "Bot is thinking…";
+    render();
+    setTimeout(botMove, reduced ? 0 : 280);
+  }
+
+  function reset(botFirst) {
+    board = Array.from({ length: COLS }, () => []);
+    over = false; last = null; scores = Array(COLS).fill(null); best = -1;
+    turn = botFirst ? BOT : HUMAN;
+    status.textContent = botFirst ? "Bot is thinking…" : "Your move.";
+    thinkEl.textContent = "Click a column, or use Tab and the arrow keys and press Enter.";
+    render();
+    if (botFirst) setTimeout(botMove, reduced ? 0 : 280);
+  }
+
+  el.addEventListener("click", e => {
+    const btn = e.target.closest("button");
+    if (btn) humanMove(+btn.dataset.col);
+  });
+  el.addEventListener("keydown", e => {
+    const i = cols.indexOf(document.activeElement);
+    if (i < 0) return;
+    const j = e.key === "ArrowLeft" ? i - 1 : e.key === "ArrowRight" ? i + 1 : -1;
+    if (j >= 0 && j < COLS) { cols[j].focus(); e.preventDefault(); }
+  });
+  document.querySelectorAll('input[name="c4-depth"]').forEach(r => r.addEventListener("change", () => { depth = +r.value; }));
+  document.getElementById("c4-new").addEventListener("click", () => reset(false));
+  document.getElementById("c4-botfirst").addEventListener("click", () => reset(true));
+  reset(false);
+})();
+</script>
 </body>
 </html>
