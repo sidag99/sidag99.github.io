@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f5f3ea" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#131b17" media="(prefers-color-scheme: dark)">
 <title>Siddharth Agarwal · Engineer & personal lab</title>
-<meta name="description" content="Full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. MSc Computer Science student at TU Darmstadt, open to Werkstudent roles and internships. Explore my work and six in-browser experiments.">
+<meta name="description" content="Full-stack engineer (Java, TypeScript, Vue.js) working on applied and agentic AI. MSc Computer Science student at TU Darmstadt, open to Werkstudent roles and internships. Explore my work, a Code Mode demo and a playground of in-browser experiments.">
 <meta property="og:title" content="Siddharth Agarwal, engineer and personal lab">
 <meta property="og:description" content="Four years shipping a Jira-integrated SaaS product. Now building applied and agentic AI and studying Data Science at TU Darmstadt.">
 <meta property="og:type" content="website">
@@ -67,7 +67,7 @@
       <div class="launchers" aria-label="Jump into an experiment">
         <button type="button" data-open="c4">Play Connect Four</button>
         <button type="button" data-open="path">Draw a maze ↗</button>
-        <button type="button" data-open="codemode">Run Code Mode</button>
+        <button type="button" data-open="ttt">Play tic-tac-toe</button>
       </div>
       <div class="art-bottom" aria-hidden="true"><span>IDEAS ↔ EXPERIMENTS ↔ SOFTWARE</span><span class="cross">✳</span></div>
     </div>
@@ -152,9 +152,9 @@
 
   <section id="code-mode" class="section wrap feature">
     <div class="section-heading">
-      <p class="eyebrow">02 / Featured project</p>
-      <h2>Keep the data<br><em>out of the prompt.</em></h2>
-      <p>Code Mode for AnythingMCP · Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH</p>
+      <p class="eyebrow">02 / Recent project</p>
+      <h2>Code Mode for<br><em>AnythingMCP.</em></h2>
+      <p>Keeping AI agents from pulling whole tables into the prompt · Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH</p>
     </div>
     <div class="feature-grid">
       <div>
@@ -182,8 +182,8 @@
           <div><strong>3 days</strong><span>16–18 Oct 2026</span></div>
         </div>
         <p class="feature-links">
+          <button class="button primary" type="button" data-open="codemode">Run it on toy data <span aria-hidden="true">↗</span></button>
           <a class="link" href="https://github.com/Jaiaaryan/captianmuqiMCP" rel="noopener">Team repository on GitHub ↗</a>
-          <button class="link" type="button" data-open="codemode" style="background:none;border:0;padding:0;font-size:inherit">Try it on toy data ↗</button>
         </p>
       </div>
 
@@ -208,33 +208,26 @@
       <div class="section-heading">
         <p class="eyebrow">03 / The playground</p>
         <h2>Less scrolling.<br><em>More trying things.</em></h2>
-        <p>Six small experiments you can get your hands on. No accounts, no setup, nothing sent anywhere.</p>
+        <p>Five small experiments you can get your hands on. No accounts, no setup, nothing sent anywhere.</p>
       </div>
 
       <div class="lab-grid">
         <article class="lab-card">
-          <span class="card-meta"><span>01 / Agentic AI</span><span class="mark" aria-hidden="true">↗</span></span>
-          <span class="mini mini-bars" aria-hidden="true"><span><b></b>1.69 MB</span><span><b></b>41 B</span><small>raw tool output vs. Code Mode</small></span>
-          <h3>Keep the data out.</h3>
-          <p>Ask an agent a question and grow the database. Raw tool output balloons; the Code Mode answer stays tiny.</p>
-          <button class="card-cta" type="button" data-lab="codemode">Run Code Mode <span aria-hidden="true">↗</span></button>
-        </article>
-        <article class="lab-card">
-          <span class="card-meta"><span>02 / Game AI</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="card-meta"><span>01 / Game AI</span><span class="mark" aria-hidden="true">↗</span></span>
           <span class="mini" aria-hidden="true"><span class="mini-c4" id="mini-c4"></span></span>
           <h3>Four in a row.</h3>
           <p>Play Connect Four against a bot that shows how it scored every column before it moves.</p>
           <button class="card-cta" type="button" data-lab="c4">Play Connect Four <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
-          <span class="card-meta"><span>03 / Game theory</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="card-meta"><span>02 / Game theory</span><span class="mark" aria-hidden="true">↗</span></span>
           <span class="mini" aria-hidden="true"><span class="mini-ttt"><span>×</span><span></span><span>○</span><span></span><span>×</span><span></span><span>○</span><span></span><span class="ghost">×</span></span></span>
           <h3>Your move, human.</h3>
           <p>Challenge a perfect minimax bot at tic-tac-toe, then reveal where every move leads.</p>
           <button class="card-cta" type="button" data-lab="ttt">Play tic-tac-toe <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
-          <span class="card-meta"><span>04 / Algorithms</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="card-meta"><span>03 / Algorithms</span><span class="mark" aria-hidden="true">↗</span></span>
           <span class="mini mini-path" aria-hidden="true">
             <svg viewBox="0 0 240 150"><defs><pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><path class="gridline" d="M 24 0 L 0 0 0 24"/></pattern></defs>
               <rect width="240" height="144" fill="url(#grid)"/>
@@ -248,14 +241,14 @@
           <button class="card-cta" type="button" data-lab="path">Open the maze <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
-          <span class="card-meta"><span>05 / Systems</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="card-meta"><span>04 / Systems</span><span class="mark" aria-hidden="true">↗</span></span>
           <span class="mini mini-wait" aria-hidden="true"><i style="width:30%"></i><i style="width:30%;margin-left:30%"></i><i style="width:30%;margin-left:60%"></i><i style="width:46%;opacity:.55"></i></span>
           <h3>Where does the waiting happen?</h3>
           <p>Change the workload and request strategy, then watch an interface get its data.</p>
           <button class="card-cta" type="button" data-lab="requests">Tune the requests <span aria-hidden="true">↗</span></button>
         </article>
         <article class="lab-card">
-          <span class="card-meta"><span>06 / Guided assistant</span><span class="mark" aria-hidden="true">↗</span></span>
+          <span class="card-meta"><span>05 / Guided assistant</span><span class="mark" aria-hidden="true">↗</span></span>
           <span class="mini mini-chat" aria-hidden="true"><span>What does Siddharth build?</span><span>✳ Glad you asked.</span></span>
           <h3>Meet the engineer.</h3>
           <p>Ask about my experience, AI work and skills. Prepared answers drawn from my résumé.</p>
@@ -264,8 +257,8 @@
       </div>
 
       <div class="lab-progress">
-        <span class="progress-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span></span>
-        <span id="lab-progress" role="status">0 / 6 experiments explored · Pick one to get started.</span>
+        <span class="progress-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+        <span id="lab-progress" role="status">0 / 5 experiments explored · Pick one to get started.</span>
       </div>
       <p class="lab-footnote"><span class="dot" aria-hidden="true"></span>Built for this portfolio with help from AI coding assistants · Runs in your browser · The assistant uses prepared answers, not a language model · <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Source on GitHub</a></p>
     </div>

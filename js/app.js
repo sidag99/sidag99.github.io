@@ -29,6 +29,7 @@ $('#mini-c4').innerHTML = MINI.map(c => `<i class="${c}"></i>`).join('');
 /* ---------- lab dialog ---------- */
 const dialog = $('#lab-dialog'), content = $('#lab-content');
 const LABS = { codemode: codeModeLab, c4: connectFourLab, ttt: ticTacToeLab, path: pathLab, requests: requestLab, ask: askLab };
+const PLAYGROUND = ['c4', 'ttt', 'path', 'requests', 'ask']; // Code Mode lives with its case study, not the playground
 const explored = new Set();
 let cleanup = () => {}, lastTrigger = null;
 
@@ -45,11 +46,12 @@ function openLab(name, trigger = document.activeElement) {
 }
 
 function markExplored(name) {
+  if (!PLAYGROUND.includes(name)) return;
   explored.add(name);
   const card = $(`.card-cta[data-lab="${name}"]`)?.closest('.lab-card');
   if (card) { card.classList.add('is-visited'); $('.mark', card).textContent = '✓'; }
   $$('.progress-dots span').forEach((d, i) => d.classList.toggle('done', i < explored.size));
-  const total = Object.keys(LABS).length;
+  const total = PLAYGROUND.length;
   $('#lab-progress').textContent = `${explored.size} / ${total} experiments explored · ${explored.size === total ? 'You tried them all. Thanks for playing!' : 'Keep experimenting.'}`;
 }
 
@@ -702,7 +704,7 @@ const COMMANDS = [
   { title: 'Draw a maze', type: 'Experiment', keywords: 'pathfinding bfs astar a* algorithms maze', lab: 'path' },
   { title: 'Tune request performance', type: 'Experiment', keywords: 'backend network api java latency performance', lab: 'requests' },
   { title: 'Ask about Siddharth', type: 'Guided assistant', keywords: 'chat resume questions background', lab: 'ask' },
-  { title: 'Code Mode case study', type: 'Featured project', keywords: 'hackathon agentic ai mcp anythingmcp black forest', target: '#code-mode' },
+  { title: 'Code Mode case study', type: 'Recent project', keywords: 'hackathon agentic ai mcp anythingmcp black forest', target: '#code-mode' },
   { title: 'Work experience', type: 'Section', keywords: 'frontend vue typescript java career aio tests jira', target: '#work' },
   { title: 'Skills and evidence', type: 'Section', keywords: 'skills stack tools', target: '.explorer' },
   { title: 'About and education', type: 'Section', keywords: 'education msc darmstadt background', target: '#about' },

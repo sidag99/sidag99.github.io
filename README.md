@@ -4,23 +4,26 @@ Personal site and lab of Siddharth Agarwal — full-stack engineer (Java, TypeSc
 
 Static files, no build step and no backend:
 
-- `index.html` — content: experience, the Code Mode case study, playground cards, about, contact.
+- `index.html` — content: experience, the Code Mode project, playground cards, about, contact.
 - `style.css` — light and dark themes, responsive layout, reduced-motion support.
 - `js/app.js` — page interactions: experiment dialogs, skill explorer, quick navigation (Cmd/Ctrl K).
-- `js/engine.mjs` — pure logic for the six experiments, testable in Node.
+- `js/engine.mjs` — pure logic for the demos and games, testable in Node.
 - `tests/engine.test.mjs` — tests for the bots, pathfinding, request model, Code Mode demo and assistant.
 - `assets/Resume_Siddharth_Agarwal.pdf` — downloadable résumé.
 
-## Playground
+## Demos
 
-1. **Code Mode on toy data** — the idea from the Black Forest Hackathon project, run against generated data in the browser.
-2. **Connect Four** — depth-limited minimax with alpha-beta pruning that shows its score for every column, with hints and undo.
-3. **Tic-tac-toe** — exhaustive minimax, with hints, outcome overlays and undo.
-4. **Pathfinding** — draw a maze and compare breadth-first search with A*.
-5. **Request simulator** — sequential, parallel and batched requests on a timeline (an illustrative model).
-6. **Guided assistant** — prepared answers from the résumé; not a language model, nothing leaves the page.
+The Code Mode project section opens **Code Mode on toy data**: the idea from the Black Forest Hackathon project, run against generated data in the browser.
 
-The experiments were built for this portfolio with help from AI coding assistants.
+The playground has five experiments:
+
+1. **Connect Four** — depth-limited minimax with alpha-beta pruning that shows its score for every column, with hints and undo.
+2. **Tic-tac-toe** — exhaustive minimax, with hints, outcome overlays and undo.
+3. **Pathfinding** — draw a maze and compare breadth-first search with A*.
+4. **Request simulator** — sequential, parallel and batched requests on a timeline (an illustrative model).
+5. **Guided assistant** — prepared answers from the résumé; not a language model, nothing leaves the page.
+
+The demos and games were built for this portfolio with help from AI coding assistants.
 
 ## Run locally
 
