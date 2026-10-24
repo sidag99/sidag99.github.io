@@ -131,9 +131,11 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spa
 .actions .link { font-size: 16.5px; }
 .hero-art {
   position: relative; align-self: start; margin-top: 16px; overflow: hidden;
-  background: var(--sage); border: 1px solid var(--line-2); border-radius: 160px 160px 4px 4px; padding: 40px 22px 18px;
+  background: var(--sage); border: 1px solid var(--line-2); border-radius: 999px 999px 4px 4px; padding: 56px 22px 18px;
 }
-.art-top, .art-bottom { display: flex; justify-content: space-between; align-items: center; font: 12px var(--mono); letter-spacing: 0.1em; padding: 0 22px; color: var(--muted); }
+/* a true arch: the top label is centred so it stays clear of the curve */
+.art-top, .art-bottom { display: flex; justify-content: space-between; align-items: center; font: 12px var(--mono); letter-spacing: 0.1em; color: var(--muted); }
+.art-top { justify-content: center; }
 .art-bottom { padding: 0 10px; }
 .art-bottom .cross { font-size: 26px; color: var(--ink); }
 .orbit { width: 100%; display: block; margin: 4px 0; }
@@ -497,7 +499,7 @@ input[type="range"] { width: 100%; accent-color: var(--green); margin: 12px 0 0;
   .hero h1 { font-size: clamp(44px, 12vw, 60px); }
   .hero h1 em { white-space: normal; }
   .intro { font-size: 18px; }
-  .hero-art { border-radius: 120px 120px 4px 4px; padding: 30px 10px 14px; }
+  .hero-art { padding: 48px 10px 14px; }
   .section { padding: 60px 0; }
   .section-heading { margin-bottom: 36px; }
   .rows summary { font-size: 18.5px; gap: 14px; }
