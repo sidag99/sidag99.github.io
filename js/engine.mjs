@@ -293,7 +293,11 @@ export function runCodeQuestion(q, tools) {
 
 const answers = [
   {
-    keys: /\b(agent\w*|agentic|mcp|code mode|sandbox|hackathon|black forest)\b/i,
+    keys: /\b(hackathon\w*)\b/i,
+    text: 'Siddharth enjoys hackathons: an unfamiliar problem, a new team and a few days to solve it. His team won first place for NCR Corporation’s problem statement at Smart India Hackathon 2020 with a hand-gesture-based ATM PIN entry system. At the Black Forest Hackathon 2026 his team built Code Mode, a sandbox that lets AI agents answer questions without pulling whole tables into the prompt, and placed 5th of 14.'
+  },
+  {
+    keys: /\b(agent\w*|agentic|mcp|code mode|sandbox|black forest)\b/i,
     text: 'At the Black Forest Hackathon (Oct 2026) Siddharth’s team of five built Code Mode for AnythingMCP, an open-source MCP gateway. Instead of pulling whole tables into the model’s context, the agent writes a short script that runs in an isolated V8 sandbox next to the data, and only the answer goes back. On one query that was 41 bytes instead of 1.69 MB. They placed 5th of 14. Siddharth broke down the challenge, steered the build (much of it written with AI coding agents) and debugged it to a working demo.'
   },
   {

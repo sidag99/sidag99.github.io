@@ -117,6 +117,7 @@ test('code mode scripts answer from toy data in far fewer bytes than the raw tab
 test('assistant stays grounded and treats unknown content as unsupported', () => {
   assert.match(resumeAnswer('AI experience'), /Azure/);
   assert.match(resumeAnswer('Tell me about agentic AI'), /Code Mode/);
+  assert.match(resumeAnswer('Does he do hackathons?'), /Smart India.*Black Forest/s);
   assert.match(resumeAnswer('Education'), /Darmstadt/);
   assert.match(resumeAnswer('Is he looking for a Werkstudent role?'), /Werkstudent/);
   assert.match(resumeAnswer('Is he available as a working student?'), /Werkstudent/);
