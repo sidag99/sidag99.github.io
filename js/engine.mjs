@@ -342,8 +342,8 @@ const answers = [
   },
   {
     keys: /\b(contact|email|e-mail|hire|hiring|job|role|werkstudent\w*|working student|intern\w*|opportunit\w*|available|reach|kontakt\w*|praktik\w*|verfügbar|erreich\w*|bewerb\w*|einstellen|anstellung|stellenangebot\w*)\b/i,
-    en: 'He’s looking for a Werkstudent (working student) role or internship in software engineering or AI, and is open to the right full-time role. Email: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. As a Werkstudent he can work up to 20 hours a week during the semester and full-time in semester breaks. For a start date, please ask him directly.',
-    de: 'Er sucht eine Werkstudentenstelle oder ein Praktikum in Softwareentwicklung oder KI und ist offen für die passende Vollzeitstelle. E-Mail: siddharth.agarwal@stud.tu-darmstadt.de · LinkedIn: linkedin.com/in/sidag99. Als Werkstudent kann er im Semester bis zu 20 Stunden pro Woche arbeiten und in den Semesterferien in Vollzeit. Für einen Starttermin fragen Sie ihn bitte direkt.'
+    en: 'He’s looking for a Werkstudent (working student) role or internship in software engineering or AI, and is open to the right full-time role. Email: sidag991@gmail.com · LinkedIn: linkedin.com/in/sidag99. As a Werkstudent he can work up to 20 hours a week during the semester and full-time in semester breaks. For a start date, please ask him directly.',
+    de: 'Er sucht eine Werkstudentenstelle oder ein Praktikum in Softwareentwicklung oder KI und ist offen für die passende Vollzeitstelle. E-Mail: sidag991@gmail.com · LinkedIn: linkedin.com/in/sidag99. Als Werkstudent kann er im Semester bis zu 20 Stunden pro Woche arbeiten und in den Semesterferien in Vollzeit. Für einen Starttermin fragen Sie ihn bitte direkt.'
   },
   {
     keys: /\b(ai|openai|azure|generative|llm|prompt\w*|applied|ki|künstlich\w*|generativ\w*|angewandt\w*)\b/i,
