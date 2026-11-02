@@ -11,7 +11,8 @@ Static files, no build step and no backend:
 - `js/i18n.mjs` — the German version of the page and the EN/DE switch. English lives in `index.html`; German text is matched to it by its English HTML. The page starts in German for German-language browsers, remembers the visitor's choice, and `?lang=de` or `?lang=en` forces a language.
 - `tests/engine.test.mjs` — tests for the bots, pathfinding, request model, Code Mode demo and assistant.
 - `assets/Resume_Siddharth_Agarwal.pdf` — downloadable résumé.
-- `assets/fonts/` — self-hosted fonts (SIL Open Font License), so the site makes no third-party requests.
+- `assets/fonts/` — self-hosted fonts (SIL Open Font License).
+- Visit counts: GoatCounter (cookie-free), loaded at the end of `index.html`; dashboard at https://siddharth-agarwal.goatcounter.com
 - `assets/og-image.png` — link-preview image for LinkedIn and other sites.
 
 ## Demos

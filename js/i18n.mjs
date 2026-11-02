@@ -173,7 +173,6 @@ const PAGE_DE = {
   'Open to Werkstudent roles and internships in software engineering and AI, and to the right full-time role. As a Werkstudent I can work up to 20 hours a week during the semester and full-time in semester breaks. Based in Darmstadt.':
     'Offen für Werkstudentenstellen und Praktika in Softwareentwicklung und KI sowie für die passende Vollzeitstelle. Als Werkstudent kann ich im Semester bis zu 20 Stunden pro Woche arbeiten und in den Semesterferien in Vollzeit. Wohnhaft in Darmstadt.',
   'Say hello <span aria-hidden="true">↗</span>': 'Schreiben Sie mir <span aria-hidden="true">↗</span>',
-  '© 2026 Siddharth Agarwal · No cookies, no analytics': '© 2026 Siddharth Agarwal · Keine Cookies, kein Tracking',
   'Résumé ↓': 'Lebenslauf (EN) ↓',
   'Back to top ↑': 'Nach oben ↑',
 
