@@ -159,8 +159,8 @@ function codeModeLab() {
         </div>
       </figure>
     </div>
-    <p class="insight">${tr('The data is generated in your browser and the script really runs against it. Tokens are estimated at 4 bytes each. It starts at the size of our hackathon benchmark (1.69 MB of raw output); drag the slider to see how each approach scales.',
-      'Die Daten werden in Ihrem Browser erzeugt, und das Skript läuft tatsächlich darauf. Tokens sind mit 4 Bytes pro Token geschätzt. Der Start entspricht der Größe unseres Hackathon-Benchmarks (1,69 MB Rohausgabe); mit dem Regler sehen Sie, wie beide Ansätze skalieren.')}</p>`;
+    <p class="insight">${tr('This simulation uses generated data. It counts the bytes in the raw tool response and in the script’s result, separately from the hackathon benchmark. Token counts are estimates at 4 bytes each. Try another question or change the number of orders to see what affects the comparison.',
+      'Diese Simulation verwendet erzeugte Daten. Sie zählt die Bytes der rohen Tool-Antwort und des Skriptergebnisses unabhängig vom Hackathon-Benchmark. Die Tokenzahl wird mit 4 Bytes pro Token geschätzt. Wählen Sie eine andere Frage oder ändern Sie die Anzahl der Bestellungen, um den Vergleich zu erkunden.')}</p>`;
 
   const enc = new TextEncoder(), size = $('#cm-size');
   const bytes = s => enc.encode(s).length;
@@ -836,7 +836,7 @@ function renderCommands() {
   for (const item of matches) {
     const b = document.createElement('button');
     b.type = 'button';
-    b.innerHTML = `<span>${esc(pick(item.title))}</span><small>${esc(pick(item.type).toUpperCase())} ↗</small>`;
+    b.innerHTML = `<span>${esc(pick(item.title))}</span><small>${esc(pick(item.type))}</small>`;
     b.addEventListener('click', () => {
       command.close();
       if (item.lab) openLab(item.lab, commandTrigger, item.tab);
@@ -867,7 +867,11 @@ command.addEventListener('keydown', e => {
   const buttons = $$('button', results), i = buttons.indexOf(document.activeElement);
   if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
     e.preventDefault();
-    if (buttons.length) buttons[(i + (e.key === 'ArrowDown' ? 1 : buttons.length - 1) + buttons.length) % buttons.length].focus();
+    if (!buttons.length) return;
+    const forward = e.key === 'ArrowDown';
+    const next = i < 0 ? (forward ? 0 : buttons.length - 1)
+      : (i + (forward ? 1 : -1) + buttons.length) % buttons.length;
+    buttons[next].focus();
   } else if (e.key === 'Enter' && document.activeElement === search) {
     e.preventDefault();
     buttons[0]?.click();

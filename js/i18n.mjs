@@ -32,17 +32,17 @@ export function setLang(next) {
 const PAGE_DE = {
   'Skip to content': 'Zum Inhalt springen',
   'Work': 'Erfahrung',
-  'Playground<span class="dot" aria-hidden="true"></span>': 'Experimente<span class="dot" aria-hidden="true"></span>',
+  'Playground': 'Experimente',
   'About': 'Über mich',
   'Jump to anything <kbd>⌘ / Ctrl K</kbd>': 'Schnell springen <kbd>⌘ / Strg K</kbd>',
-  'Let’s talk<span aria-hidden="true">↗</span>': 'Kontakt<span aria-hidden="true">↗</span>',
+  'Let’s talk': 'Kontakt',
 
   // hero
   'Full-stack engineer.<br><em>Curious by default.</em>': 'Full-Stack-Entwickler.<br><em>Neugierig aus Prinzip.</em>',
   'I’m Siddharth. I spent four years shipping a Jira-integrated SaaS product in Java, TypeScript and Vue.js. Now I build applied and agentic AI while studying Data Science at TU&nbsp;Darmstadt.':
     'Ich bin Siddharth. Vier Jahre lang habe ich ein in Jira integriertes SaaS-Produkt mit Java, TypeScript und Vue.js entwickelt. Heute studiere ich Data Science an der TU&nbsp;Darmstadt und baue Anwendungen mit angewandter und agentischer KI.',
-  '<span class="dot" aria-hidden="true"></span>Open to Werkstudent roles and internships in Germany': '<span class="dot" aria-hidden="true"></span>Offen für Werkstudentenstellen und Praktika in Deutschland',
-  'Explore my work <span aria-hidden="true">↘</span>': 'Meine Arbeit ansehen <span aria-hidden="true">↘</span>',
+  'Open to Werkstudent roles and internships in Germany': 'Offen für Werkstudentenstellen und Praktika in Deutschland',
+  'Explore my work': 'Meine Arbeit ansehen',
   'Enter the playground': 'Zu den Experimenten',
   'Download résumé ↓': 'Lebenslauf herunterladen (EN) ↓',
   'THE PERSONAL LAB': 'DAS PERSÖNLICHE LABOR',
@@ -52,7 +52,7 @@ const PAGE_DE = {
   'IDEAS ↔ EXPERIMENTS ↔ SOFTWARE': 'IDEEN ↔ EXPERIMENTE ↔ SOFTWARE',
 
   // work
-  '01 / Selected experience': '01 / Berufserfahrung',
+  'Experience': 'Berufserfahrung',
   'From the interface<br>to the <em>database.</em>': 'Von der Oberfläche<br>bis zur <em>Datenbank.</em>',
   'Four years building B2B software at Navarambh, and an internship in test automation before that.': 'Vier Jahre B2B-Software bei Navarambh, davor ein Praktikum in der Testautomatisierung.',
   'Jul 2021 — Oct 2025': 'Jul 2021 — Okt 2025',
@@ -80,7 +80,7 @@ const PAGE_DE = {
   'Experience and metrics from my résumé. Employer source code isn’t published here.': 'Erfahrung und Kennzahlen stammen aus meinem Lebenslauf. Quellcode meines Arbeitgebers wird hier nicht veröffentlicht.',
 
   // code mode
-  '02 / Recent project': '02 / Aktuelles Projekt',
+  'Featured project': 'Aktuelles Projekt',
   'Code Mode for<br><em>AnythingMCP.</em>': 'Code Mode für<br><em>AnythingMCP.</em>',
   'Black Forest Hackathon, Oct 2026 · Team of five · Challenge set by KOCH Freiburg GmbH': 'Black Forest Hackathon, Okt 2026 · Fünferteam · Aufgabe von KOCH Freiburg GmbH',
   'The problem': 'Das Problem',
@@ -99,45 +99,43 @@ const PAGE_DE = {
   'I broke down the challenge and decided with the team what to build, steered the build (much of the code was written with AI coding agents), and debugged and fixed the issues that came up on the way to a working demo.':
     'Ich habe die Aufgabe analysiert und mit dem Team entschieden, was wir bauen, die Umsetzung gesteuert (ein Großteil des Codes entstand mit KI-Coding-Agenten) und die Probleme auf dem Weg zur funktionierenden Demo gefunden und behoben.',
   '1.69 MB → 41 B': '1,69 MB → 41 B',
-  'raw tool output vs. Code Mode answer on one query': 'rohe Tool-Ausgabe vs. Code-Mode-Antwort bei einer Abfrage',
+  'Hackathon benchmark: raw tool output vs. the Code Mode answer for one query.': 'Hackathon-Benchmark: rohe Tool-Ausgabe im Vergleich zur Code-Mode-Antwort bei einer Abfrage.',
   '5th of 14': 'Platz 5 von 14',
   'final ranking': 'Endplatzierung',
   '3 days': '3 Tage',
   '16–18 Oct 2026': '16.–18. Okt 2026',
-  'Run it on toy data <span aria-hidden="true">↗</span>': 'Mit Spieldaten ausprobieren <span aria-hidden="true">↗</span>',
+  'Run it on toy data': 'Mit Spieldaten ausprobieren',
   'Agent is asked: <b>“What happened to order 12345?”</b>': 'Der Agent wird gefragt: <b>„Was ist mit Bestellung 12345 passiert?“</b>',
-  'Raw tool calls': 'Rohe Tool-Aufrufe',
-  '1.69 MB': '1,69 MB',
-  'Same answer, about 10 tokens instead of 422,500. From our hackathon benchmark.': 'Dieselbe Antwort, etwa 10 statt 422.500 Tokens. Aus unserem Hackathon-Benchmark.',
+
+  'This example shows the script and its result. The browser demo measures a separate comparison using generated data.':
+    'Dieses Beispiel zeigt das Skript und sein Ergebnis. Die Browser-Demo misst einen separaten Vergleich mit erzeugten Daten.',
 
   // playground
-  '03 / The playground': '03 / Experimente',
   'Small experiments,<br><em>run in your browser.</em>': 'Kleine Experimente,<br><em>direkt im Browser.</em>',
   'Four things to try, from the request timing behind my backend work to two game bots that explain their moves. No accounts, no setup.':
     'Vier Dinge zum Ausprobieren, vom Request-Timing hinter meiner Backend-Arbeit bis zu zwei Spiel-Bots, die ihre Züge erklären. Ohne Konto, ohne Einrichtung.',
-  '01 / Systems': '01 / Systeme',
+  'Systems': 'Systeme',
   'Where does the waiting happen?': 'Wo entsteht die Wartezeit?',
   'Change the workload and request strategy, then watch an interface get its data.': 'Ändern Sie Datenmenge und Request-Strategie und sehen Sie zu, wie eine Oberfläche ihre Daten lädt.',
-  'Tune the requests <span aria-hidden="true">↗</span>': 'Requests optimieren <span aria-hidden="true">↗</span>',
-  '02 / Game AI': '02 / Spiel-KI',
+  'Tune the requests': 'Requests optimieren',
+  'Game AI': 'Spiel-KI',
   'Two games, two kinds of bot.': 'Zwei Spiele, zwei Arten von Bot.',
   'Tic-tac-toe, solved completely. Connect Four, too big to solve, so its bot estimates. Both show their reasoning.': 'Tic-Tac-Toe, vollständig gelöst. Vier gewinnt, zu groß zum Lösen, also schätzt der Bot. Beide zeigen, wie sie denken.',
-  'Play the games <span aria-hidden="true">↗</span>': 'Jetzt spielen <span aria-hidden="true">↗</span>',
-  '03 / Algorithms': '03 / Algorithmen',
+  'Play the games': 'Jetzt spielen',
+  'Algorithms': 'Algorithmen',
   'Find a way through.': 'Finden Sie den Weg.',
   'Draw a maze and watch breadth-first search and A* race for the shortest path.': 'Zeichnen Sie ein Labyrinth und sehen Sie zu, wie Breitensuche und A* um den kürzesten Weg wetteifern.',
-  'Open the maze <span aria-hidden="true">↗</span>': 'Labyrinth öffnen <span aria-hidden="true">↗</span>',
-  '04 / Guided assistant': '04 / Geführter Assistent',
+  'Open the maze': 'Labyrinth öffnen',
+  'Guided assistant': 'Geführter Assistent',
   'What does Siddharth build?': 'Was baut Siddharth?',
   '✳ Glad you asked.': '✳ Gute Frage.',
   'Meet the engineer.': 'Lernen Sie mich kennen.',
   'Ask about my experience, AI work and skills. Prepared answers drawn from my résumé.': 'Fragen Sie nach meiner Erfahrung, meiner KI-Arbeit und meinen Fähigkeiten. Vorbereitete Antworten aus meinem Lebenslauf.',
-  'Ask a question <span aria-hidden="true">↗</span>': 'Frage stellen <span aria-hidden="true">↗</span>',
-  '<span class="dot" aria-hidden="true"></span>Made for this site with help from AI coding tools · Everything runs in your browser · The assistant gives prepared answers from my résumé, it isn’t a language model · <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Source on GitHub</a>':
-    '<span class="dot" aria-hidden="true"></span>Für diese Seite mit Hilfe von KI-Coding-Tools gebaut · Alles läuft in Ihrem Browser · Der Assistent gibt vorbereitete Antworten aus meinem Lebenslauf und ist kein Sprachmodell · <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Quellcode auf GitHub</a>',
+  'Ask a question': 'Frage stellen',
+  'Built with help from AI coding tools. The experiments run in your browser. The assistant uses prepared résumé answers. <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Source on GitHub</a>':
+    'Mit Hilfe von KI-Coding-Tools entwickelt. Die Experimente laufen im Browser. Der Assistent nutzt vorbereitete Antworten aus meinem Lebenslauf. <a class="link" href="https://github.com/sidag99/sidag99.github.io" rel="noopener">Quellcode auf GitHub</a>',
 
   // about
-  '04 / A little context': '04 / Über mich',
   'An engineer.<br>A student. <em>A tinkerer.</em>': 'Entwickler.<br>Student. <em>Tüftler.</em>',
   'I like the part of engineering where a product gets noticeably better for the people using it.': 'Mich reizt der Teil der Entwicklung, in dem ein Produkt für seine Nutzer spürbar besser wird.',
   'A page that loads faster, a migration nobody has to think about afterwards, an AI feature that saves someone real work instead of just demoing well. That’s what four years on AIO Tests taught me to care about.':
@@ -168,11 +166,10 @@ const PAGE_DE = {
   'An Android app that places 3D floor plans on printed markers, built with Unity and Vuforia.': 'Eine Android-App, die 3D-Grundrisse auf gedruckten Markern einblendet, gebaut mit Unity und Vuforia.',
 
   // contact
-  '05 / Let’s make something': '05 / Lassen Sie uns etwas bauen',
   'Looking for a Werkstudent or intern?<br><em>Let’s talk.</em>': 'Sie suchen einen Werkstudenten oder Praktikanten?<br><em>Lassen Sie uns sprechen.</em>',
   'Open to Werkstudent roles and internships in software engineering and AI, and to the right full-time role. As a Werkstudent I can work up to 20 hours a week during the semester and full-time in semester breaks. Based in Darmstadt.':
     'Offen für Werkstudentenstellen und Praktika in Softwareentwicklung und KI sowie für die passende Vollzeitstelle. Als Werkstudent kann ich im Semester bis zu 20 Stunden pro Woche arbeiten und in den Semesterferien in Vollzeit. Wohnhaft in Darmstadt.',
-  'Say hello <span aria-hidden="true">↗</span>': 'Schreiben Sie mir <span aria-hidden="true">↗</span>',
+  'Say hello': 'Schreiben Sie mir',
   'Résumé ↓': 'Lebenslauf (EN) ↓',
   'Back to top ↑': 'Nach oben ↑',
 
